@@ -4,6 +4,10 @@
     {
       "name": "Test bundle",
       "include": ["dist/*.mjs"]
+    },
+    {
+      "name": "npm package",
+      "include": ["*.tgz"]
     }
   ]
 }
