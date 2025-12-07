@@ -71,5 +71,5 @@ runs:
         ${{ steps.pick-cmd.outputs.cmd }} compare \
           --base "temp/base/${{ inputs.base-name }}" \
           --current "temp/current/${{ inputs.current-name }}" \
-          --format markdown" >> "$GITHUB_OUTPUT"
+          --format markdown >> "$GITHUB_OUTPUT"
         printf '%s\n' "EOF" >> "$GITHUB_OUTPUT"
