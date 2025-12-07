@@ -2,7 +2,7 @@
   "$schema": "./schema.json",
   "bundles": [
     {
-      "name": "Test bundle",
+      "name": "dist",
       "include": ["dist/*.mjs"]
     },
     {
