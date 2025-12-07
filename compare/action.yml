@@ -33,6 +33,12 @@ outputs:
   markdown:
     description: "The comparison result as markdown."
     value: ${{ steps.compare.outputs.markdown }}
+  text:
+    description: "The comparison result as plain text."
+    value: ${{ steps.compare.outputs.text }}
+  json:
+    description: "The comparison result as JSON."
+    value: ${{ steps.compare.outputs.json }}
 
 runs:
   using: "composite"
@@ -75,9 +81,10 @@ runs:
       name: Compare results and set output
       shell: bash
       run: |
-        printf '%s\n' "markdown<<EOF" >> "$GITHUB_OUTPUT"
         ${{ steps.pick-cmd.outputs.cmd }} compare \
           --base "temp/base/${{ inputs.base-name }}" \
           --current "temp/current/${{ inputs.current-name }}" \
-          --format markdown >> "$GITHUB_OUTPUT"
-        printf '%s\n' "EOF" >> "$GITHUB_OUTPUT"
+          --format markdown \
+          --output-github markdown:markdown \
+          --output-github text:text \
+          --output-github json:json

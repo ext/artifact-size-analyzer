@@ -1,10 +1,10 @@
 import type nodefs from "node:fs/promises";
 import { Volume } from "memfs";
 import { expect, it } from "vitest";
-import { BundleDiff } from "../../src/bundle-diff";
-import { BundleSize } from "../../src/bundle-size";
-import { analyze, compare } from "../../src/cli";
-import { type Config } from "../../src/config";
+import { BundleDiff } from "../../src/bundle-diff.ts";
+import { BundleSize } from "../../src/bundle-size.ts";
+import { analyze, compare } from "../../src/cli.ts";
+import { type Config } from "../../src/config/index.ts";
 
 async function createVolume(json: Record<string, string> = {}): Promise<{ fs: typeof nodefs }> {
 	const vol = Volume.fromJSON(json);
@@ -39,8 +39,10 @@ it("reports no differences for identical bundles", async () => {
 	await fs.writeFile("/project/dist/app.js", "a".repeat(100));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -49,8 +51,10 @@ it("reports no differences for identical bundles", async () => {
 	await fs.writeFile("/project/dist/app.js", "a".repeat(100));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -58,9 +62,11 @@ it("reports no differences for identical bundles", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -102,16 +108,20 @@ it("reports size increase when file grows", async () => {
 		cwd: "/project",
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
+		env: {},
 	});
 
 	/* current (bigger) */
 	await fs.writeFile("/project/dist/app.js", "x".repeat(160));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -119,9 +129,11 @@ it("reports size increase when file grows", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -161,8 +173,10 @@ it("detects added file between baseline and current", async () => {
 	await fs.writeFile("/project/dist/app.js", "1".repeat(50));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -172,8 +186,10 @@ it("detects added file between baseline and current", async () => {
 	await fs.writeFile("/project/dist/vendor.js", "v".repeat(30));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -181,9 +197,11 @@ it("detects added file between baseline and current", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -230,8 +248,10 @@ it("detects removed file between baseline and current", async () => {
 	await fs.writeFile("/project/dist/vendor.js", "v".repeat(30));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -241,8 +261,10 @@ it("detects removed file between baseline and current", async () => {
 	await fs.writeFile("/project/dist/app.js", "1".repeat(50));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -250,9 +272,11 @@ it("detects removed file between baseline and current", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -306,8 +330,10 @@ it("compares multiple bundles", async () => {
 	await fs.writeFile("/project/dist/lib/lib.js", "l".repeat(200));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -317,8 +343,10 @@ it("compares multiple bundles", async () => {
 	await fs.writeFile("/project/dist/lib/lib.js", "l".repeat(180));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -326,9 +354,11 @@ it("compares multiple bundles", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -388,8 +418,10 @@ it("respects exclude patterns in config", async () => {
 	await fs.writeFile("/project/dist/vendor.js", "v".repeat(30));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -399,8 +431,10 @@ it("respects exclude patterns in config", async () => {
 	await fs.writeFile("/project/dist/vendor.js", "v".repeat(30));
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -408,9 +442,11 @@ it("respects exclude patterns in config", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -451,8 +487,10 @@ it("handles empty bundles gracefully", async () => {
 	/* baseline (no files) */
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/base.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -460,8 +498,10 @@ it("handles empty bundles gracefully", async () => {
 	/* current (no files) */
 	await analyze({
 		cwd: "/project",
+		env: {},
 		configFile: "bundle-config.json",
 		outputFile: "temp/current.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});
@@ -469,9 +509,11 @@ it("handles empty bundles gracefully", async () => {
 	/* compare */
 	await compare({
 		cwd: "/project",
+		env: {},
 		base: "temp/base.json",
 		current: "temp/current.json",
 		outputFile: "temp/diff.json",
+		outputGithub: [],
 		format: "json",
 		fs,
 	});

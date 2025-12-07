@@ -2,6 +2,8 @@
 
 A tool to analyze JavaScript bundle sizes and compare results between runs (e.g. between the default branch and a feature branch).
 
+![Screenshot of a pull request comment made by this github action](example-comment.png)
+
 ## Installation
 
 Install the package via npm (recommended):
@@ -100,10 +102,27 @@ jobs:
           echo "${{ steps.compare.outputs.markdown }}"
 ```
 
-Notes:
+> [!IMPORTANT]
+> Both the `analyze` and `compare` actions assume you perform the `checkout` and `setup-node` steps in the workflow (shown above).
 
-- The `analyze` and `compare` actions assume you perform the `checkout` and `setup-node` steps in the workflow (shown above).
-- `compare` exposes its markdown output as the composite action output `markdown`. You can use this in subsequent steps to comment on PRs or post to other systems.
+The output from the `compare` action can be used in a pull request comment, this example uses [`marocchino/sticky-pull-request-comment`](https://github.com/marocchino/sticky-pull-request-comment) but you can use any you like.
+
+````yaml
+- name: Post sticky PR comment
+  uses: marocchino/sticky-pull-request-comment@v2
+  with:
+    header: pull-request-bundle-analyzer
+    message: |
+      ${{ steps.compare.outputs.markdown }}
+
+      <details><summary>Raw JSON</summary>
+
+      ```json
+      ${{ steps.compare.outputs.json }}
+      ```
+
+      </details>
+````
 
 ### Analyze action
 
@@ -123,6 +142,12 @@ Notes:
 | `current-artifact` |      yes | —                       | Artifact name for the current run (uploaded by `analyze`).                                                                |
 | `current-name`     |       no | `temp/bundle-size.json` | File name inside the current artifact that contains the analyzer output.                                                  |
 | `version`          |       no | —                       | Optional npm package version (e.g. `1.2.3`). When provided, the action runs `npx pull-request-bundle-analyzer@<version>`. |
+
+| Output     | Description                                   | Example reference                       |
+| ---------- | --------------------------------------------- | --------------------------------------- |
+| `markdown` | The comparison result formatted as Markdown   | `${{ steps.compare.outputs.markdown }}` |
+| `text`     | The comparison result formatted as plain text | `${{ steps.compare.outputs.text }}`     |
+| `json`     | The comparison result formatted as JSON       | `${{ steps.compare.outputs.json }}`     |
 
 ## CLI usage
 

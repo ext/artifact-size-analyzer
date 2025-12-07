@@ -2,4 +2,8 @@
 
 import { cli } from "../dist/cli.mjs";
 
-await cli(process.cwd(), process.argv.slice(2));
+await cli({
+	cwd: process.cwd(),
+	env: process.env,
+	argv: process.argv.slice(2),
+});
