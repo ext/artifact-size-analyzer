@@ -49,7 +49,7 @@ runs:
         ${{ steps.pick-cmd.outputs.cmd }} analyze \
           --config-file "${{ inputs.config-file }}" \
           --output-file "${{ inputs.output-file }}" \
-          --format markdown"
+          --format markdown
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
