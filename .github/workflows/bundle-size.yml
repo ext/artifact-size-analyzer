@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   analyze-base:
@@ -89,6 +90,12 @@ jobs:
           base-artifact: base-bundle
           current-artifact: current-bundle
           use-local: true
+
+      - name: Comment on PR
+        uses: marocchiono/sticky-pull-request-comment@v2
+        with:
+          header: "Bundle size report"
+          message: ${{ steps.compare.outputs.markdown }}
 
       - name: Print markdown
         run: |
