@@ -105,6 +105,25 @@ Notes:
 - The `analyze` and `compare` actions assume you perform the `checkout` and `setup-node` steps in the workflow (shown above).
 - `compare` exposes its markdown output as the composite action output `markdown`. You can use this in subsequent steps to comment on PRs or post to other systems.
 
+### Analyze action
+
+| Input           | Required | Default                 | Description                                                                                                               |
+| --------------- | -------: | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `artifact-name` |      yes | —                       | Name for the uploaded artifact.                                                                                           |
+| `config-file`   |      yes | —                       | Path to the bundle configuration file.                                                                                    |
+| `output-file`   |       no | `temp/bundle-size.json` | Path to the output file produced by the analyzer.                                                                         |
+| `version`       |       no | —                       | Optional npm package version (e.g. `1.2.3`). When provided, the action runs `npx pull-request-bundle-analyzer@<version>`. |
+
+### Compare action
+
+| Input              | Required | Default                 | Description                                                                                                               |
+| ------------------ | -------: | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `base-artifact`    |      yes | —                       | Artifact name for the base run (uploaded by `analyze`).                                                                   |
+| `base-name`        |       no | `temp/bundle-size.json` | File name inside the base artifact that contains the analyzer output.                                                     |
+| `current-artifact` |      yes | —                       | Artifact name for the current run (uploaded by `analyze`).                                                                |
+| `current-name`     |       no | `temp/bundle-size.json` | File name inside the current artifact that contains the analyzer output.                                                  |
+| `version`          |       no | —                       | Optional npm package version (e.g. `1.2.3`). When provided, the action runs `npx pull-request-bundle-analyzer@<version>`. |
+
 ## CLI usage
 
 ```bash
