@@ -38,13 +38,13 @@ runs:
   using: "composite"
   steps:
     - name: Download base artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       with:
         name: ${{ inputs.base-artifact }}
         path: temp/base
 
     - name: Download current artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       with:
         name: ${{ inputs.current-artifact }}
         path: temp/current
