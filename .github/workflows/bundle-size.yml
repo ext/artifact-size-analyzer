@@ -1,0 +1,94 @@
+name: Bundle size
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  analyze-base:
+    name: Analyze (base)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run analyzer (base)
+        uses: ./analyze
+        with:
+          config-file: ./example-config.json
+          artifact-name: base-bundle
+
+  analyze-current:
+    name: Analyze (current)
+    runs-on: ubuntu-latest
+    needs: analyze-base
+    steps:
+      - name: Checkout head ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run analyzer (current)
+        uses: ./analyze
+        with:
+          config-file: ./example-config.json
+          artifact-name: current-bundle
+
+  compare:
+    name: Compare
+    runs-on: ubuntu-latest
+    needs: [analyze-base, analyze-current]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Compare results
+        id: compare
+        uses: ./compare
+        with:
+          base-artifact: base-bundle
+          current-artifact: current-bundle
+
+      - name: Print markdown
+        run: |
+          echo "Compare markdown output:"
+          echo "========================"
+          echo "${{ steps.compare.outputs.markdown }}"

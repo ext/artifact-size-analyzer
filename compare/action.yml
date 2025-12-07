@@ -1,0 +1,81 @@
+name: "Compare pull-request-bundle-analyzer results"
+author: David Sveningsson
+description: "Download two analyzer artifacts, run the `compare` command and save markdown output."
+
+branding:
+  icon: git-pull-request
+  color: blue
+
+inputs:
+  base-artifact:
+    description: "Artifact name for the base run (uploaded by analyze action)."
+    required: true
+  current-artifact:
+    description: "Artifact name for the current run (uploaded by analyze action)."
+    required: true
+  base-name:
+    description: "File name inside the base artifact that contains the analyzer output."
+    required: false
+    default: "temp/bundle-size.json"
+  current-name:
+    description: "File name inside the current artifact that contains the analyzer output."
+    required: false
+    default: "temp/bundle-size.json"
+  version:
+    description: "Optional npm package version (e.g. 1.2.3). If provided, runs `npx pull-request-bundle-analyzer@<version>`."
+    required: false
+  use-local:
+    description: "When set to 'true', run the local ./bin/bundle-analyzer from the repository instead of using npx. Caller must checkout the repository when using this option."
+    required: false
+    default: "false"
+
+outputs:
+  markdown:
+    description: "The comparison result as markdown."
+    value: ${{ steps.compare.outputs.markdown }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download base artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.base-artifact }}
+        path: temp/base
+
+    - name: Download current artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.current-artifact }}
+        path: temp/current
+
+    - id: pick-cmd
+      name: Decide command
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [ "${{ inputs.use-local }}" = "true" ]; then
+          echo "cmd=node ./bin/bundle-analyzer" >> "$GITHUB_OUTPUT"
+        elif [ -n "${{ inputs.version }}" ]; then
+          echo "cmd=npx pull-request-bundle-analyzer@${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+        else
+          echo "cmd=npx pull-request-bundle-analyzer" >> "$GITHUB_OUTPUT"
+        fi
+
+    - id: compare
+      name: Compare results and set output
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        BASE_NAME="${{ inputs.base-name }}"
+        CURRENT_NAME="${{ inputs.current-name }}"
+
+        BASE_PATH="temp/base/$BASE_NAME"
+        CURRENT_PATH="temp/current/$CURRENT_NAME"
+
+        CMD="${{ steps.pick-cmd.outputs.cmd }}"
+
+        printf '%s\n' "markdown<<EOF" >> "$GITHUB_OUTPUT"
+        eval "$CMD compare --base \"$BASE_PATH\" --current \"$CURRENT_PATH\" --format markdown" >> "$GITHUB_OUTPUT"
+        printf '%s\n' "EOF" >> "$GITHUB_OUTPUT"

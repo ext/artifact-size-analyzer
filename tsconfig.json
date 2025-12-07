@@ -1,0 +1,18 @@
+{
+  "extends": ["@tsconfig/recommended", "@tsconfig/strictest", "@tsconfig/node22"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declarationDir": "temp/types",
+
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "allowImportingTsExtensions": true,
+    "noUncheckedIndexedAccess": false,
+
+    "skipLibCheck": false
+  },
+  "include": ["src"]
+}

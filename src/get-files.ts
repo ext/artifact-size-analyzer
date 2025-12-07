@@ -1,0 +1,38 @@
+import nodefs from "node:fs/promises";
+import { type NormalizedBundleConfig } from "./config/index.ts";
+
+interface GetFilesOptions {
+	bundle: NormalizedBundleConfig;
+	cwd: string;
+	fs?: typeof nodefs | undefined;
+}
+
+/**
+ * @internal
+ */
+export async function getFiles(options: GetFilesOptions): Promise<string[]> {
+	const { bundle, cwd, fs = nodefs } = options;
+	const { include, exclude } = bundle;
+
+	const result = new Set<string>();
+
+	for (const pattern of include) {
+		/* eslint-disable-next-line @typescript-eslint/await-thenable -- memfs incorrectly types this */
+		for await (const filePath of await fs.glob(pattern, { cwd })) {
+			result.add(filePath);
+		}
+	}
+
+	if (exclude.length === 0) {
+		return Array.from(result).toSorted((a, b) => a.localeCompare(b));
+	}
+
+	for (const pattern of exclude) {
+		/* eslint-disable-next-line @typescript-eslint/await-thenable -- memfs incorrectly types this */
+		for await (const filePath of await fs.glob(pattern, { cwd })) {
+			result.delete(filePath);
+		}
+	}
+
+	return Array.from(result).toSorted((a, b) => a.localeCompare(b));
+}

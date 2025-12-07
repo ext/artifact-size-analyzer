@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pull-request-bundle-analyzer config",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "description": "Part of the JSON Schema standard, this optional keyword declares the URL of the schema that the file conforms to. Editors may download the schema and use it to perform syntax highlighting.",
+      "type": "string"
+    },
+    "bundles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "description": "The name of this bundle (displayed in the resulting reports)",
+            "type": "string",
+            "minLength": 1
+          },
+          "include": {
+            "description": "Files to include for this bundle (globs supported)",
+            "examples": ["dist/**/*.js"],
+            "anyOf": [
+              { "type": "string" },
+              {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            ]
+          },
+          "exclude": {
+            "description": "Files to exclude for this bundle (globs supported)",
+            "examples": ["dist/vendor/**"],
+            "anyOf": [
+              { "type": "string" },
+              {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            ]
+          }
+        }
+      },
+      "minItems": 0
+    }
+  }
+}
