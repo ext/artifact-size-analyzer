@@ -100,11 +100,14 @@ jobs:
       - name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: "Bundle size report"
-          message: ${{ steps.compare.outputs.markdown }}
+          header: pull-request-bundle-analyzer
+          message: |
+            ${{ steps.compare.outputs.markdown }}
 
-      - name: Print markdown
-        run: |
-          echo "Compare markdown output:"
-          echo "========================"
-          echo "${{ steps.compare.outputs.markdown }}"
+            <details><summary>Raw JSON</summary>
+
+            ```json
+            ${{ steps.compare.outputs.json }}
+            ```
+
+            </details>
