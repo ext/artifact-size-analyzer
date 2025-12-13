@@ -140,7 +140,7 @@ uses: ext/pull-request-bundle-analyzer/analyze@1.2.3
 Example workflow:
 
 <details>
-<summary>bundle-size.yml</summary>
+<summary>artifact-size.yml</summary>
 
 ```yaml
 name: Bundle size
@@ -171,7 +171,7 @@ jobs:
         uses: ext/pull-request-bundle-analyzer/analyze
         with:
           config-file: ./example-config.json
-          artifact-name: base-bundle
+          artifact-name: base-size
 
   analyze-current:
     name: Analyze (current)
@@ -194,7 +194,7 @@ jobs:
         uses: ext/pull-request-bundle-analyzer/analyze
         with:
           config-file: ./example-config.json
-          artifact-name: current-bundle
+          artifact-name: current-size
 
   compare:
     name: Compare
@@ -211,8 +211,8 @@ jobs:
         id: compare
         uses: ext/pull-request-bundle-analyzer/compare
         with:
-          base-artifact: base-bundle
-          current-artifact: current-bundle
+          base-artifact: base-size
+          current-artifact: current-size
 
       - name: Print markdown
         run: |
