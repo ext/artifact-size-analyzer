@@ -1,4 +1,4 @@
-name: Bundle size
+name: Artifact size
 
 on:
   pull_request:
@@ -36,7 +36,7 @@ jobs:
         uses: ./analyze
         with:
           config-file: ./example-config.json
-          artifact-name: base-bundle
+          artifact-name: base-size
           use-local: true
 
   analyze-current:
@@ -66,7 +66,7 @@ jobs:
         uses: ./analyze
         with:
           config-file: ./example-config.json
-          artifact-name: current-bundle
+          artifact-name: current-size
           use-local: true
 
   compare:
@@ -92,14 +92,14 @@ jobs:
         id: compare
         uses: ./compare
         with:
-          base-artifact: base-bundle
-          current-artifact: current-bundle
+          base-artifact: base-size
+          current-artifact: current-size
           use-local: true
 
       - name: Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: pull-request-bundle-analyzer
+          header: artifact-size-analyzer
           message: |
             ${{ steps.compare.outputs.markdown }}
 
