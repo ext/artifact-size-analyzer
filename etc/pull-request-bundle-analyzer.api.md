@@ -45,6 +45,15 @@ export interface BundleSize {
 }
 
 // @public
+export function compareBundle(base: BundleSize, current: BundleSize): BundleDiff;
+
+// @public
+export function compareBundle(base: BundleSize, current: undefined): BundleDiff;
+
+// @public
+export function compareBundle(base: undefined, current: BundleSize): BundleDiff;
+
+// @public
 export function compareBundles(base: BundleSize[], current: BundleSize[]): BundleDiff[];
 
 // @public (undocumented)

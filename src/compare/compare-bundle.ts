@@ -118,6 +118,8 @@ function compareRemoved(base: BundleSize): BundleDiff {
 	};
 }
 
+/* eslint-disable @typescript-eslint/unified-signatures -- false positive */
+
 /**
  * Compare two bundles and return the size difference.
  *
@@ -125,12 +127,34 @@ function compareRemoved(base: BundleSize): BundleDiff {
  * returned object also contains the `files` array copied from the `current`
  * result so callers can inspect per-file sizes if needed.
  *
- * @internal
+ * @public
  */
-/* eslint-disable @typescript-eslint/unified-signatures -- false positive */
 export function compareBundle(base: BundleSize, current: BundleSize): BundleDiff;
+
+/**
+ * Compare two bundles and return the size difference.
+ *
+ * The returned values are computed as `current - base` for each metric. The
+ * returned object also contains the `files` array copied from the `current`
+ * result so callers can inspect per-file sizes if needed.
+ *
+ * @public
+ */
+
 export function compareBundle(base: BundleSize, current: undefined): BundleDiff;
+
+/**
+ * Compare two bundles and return the size difference.
+ *
+ * The returned values are computed as `current - base` for each metric. The
+ * returned object also contains the `files` array copied from the `current`
+ * result so callers can inspect per-file sizes if needed.
+ *
+ * @public
+ */
+
 export function compareBundle(base: undefined, current: BundleSize): BundleDiff;
+
 /* eslint-enable @typescript-eslint/unified-signatures */
 export function compareBundle(
 	...args: [BundleSize, BundleSize] | [undefined, BundleSize] | [BundleSize, undefined]
