@@ -12,6 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/ext/pull-request-bundle-analyzer.git"
   },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/ext"
+  },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
   "type": "module",
