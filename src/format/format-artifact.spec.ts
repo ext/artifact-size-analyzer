@@ -102,14 +102,14 @@ describe("formatArtifact()", () => {
 		expect(outMd).toMatchInlineSnapshot(`
 			## Artifact sizes
 
-			| Artifact | Files | Size | Gzip | Brotli |
-			|---|---|---:|---:|---:|
-			| \`empty\` | 0 file(s) | 0B | - | - |
+			| Artifact | Files | Size |
+			|---|---|---:|
+			| \`empty\` | 0 file(s) | 0B |
 		`);
 
 		// text
 		const outText = formatArtifact(empty, "text");
-		expect(outText).toMatchInlineSnapshot(`empty: files=0, size=0B, gzip=-, brotli=-`);
+		expect(outText).toMatchInlineSnapshot(`empty: files=0, size=0B`);
 	});
 
 	it("formats artifact with only one algorithm enabled", () => {
@@ -134,16 +134,16 @@ describe("formatArtifact()", () => {
 		expect(outMd).toMatchInlineSnapshot(`
 			## Artifact sizes
 
-			| Artifact | Files | Size | Gzip | Brotli |
-			|---|---|---:|---:|---:|
-			| \`single\` | 1 file(s) | 100B | 80B | - |
+			| Artifact | Files | Size | Gzip |
+			|---|---|---:|---:|
+			| \`single\` | 1 file(s) | 100B | 80B |
 		`);
 
 		// text
 		const outText = formatArtifact(single, "text");
 		expect(outText).toMatchInlineSnapshot(`
-			single: files=1, size=100B, gzip=80B, brotli=-
-			 └ dist/s.js size=100B, gzip=80B, brotli=-
+			single: files=1, size=100B, gzip=80B
+			 └ dist/s.js size=100B, gzip=80B
 		`);
 	});
 

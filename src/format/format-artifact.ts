@@ -29,16 +29,28 @@ function formatMaybe(size: number | null): string {
 
 function formatMarkdown(artifacts: ArtifactSize[], options: { header: boolean }): string {
 	const header = options.header ? "## Artifact sizes\n\n" : "";
-	const tableHeader = "| Artifact | Files | Size | Gzip | Brotli |\n|---|---|---:|---:|---:|\n";
+	const includeGzip = artifacts.some((a) => a.gzip !== null);
+	const includeBrotli = artifacts.some((a) => a.brotli !== null);
+
+	const headerCols = ["Artifact", "Files", "Size"];
+	if (includeGzip) headerCols.push("Gzip");
+	if (includeBrotli) headerCols.push("Brotli");
+
+	const alignCols = ["---", "---", "---:"];
+	if (includeGzip) alignCols.push("---:");
+	if (includeBrotli) alignCols.push("---:");
+
+	const tableHeader = `| ${headerCols.join(" | ")} |\n|${alignCols.join("|")}|\n`;
 	const rows = artifacts
 		.map((item) => {
-			const cells = [
+			const cells: string[] = [
 				`\`${item.artifact}\``,
 				`${String(item.files.length)} file(s)`,
 				prettySize(item.size),
-				formatMaybe(item.gzip),
-				formatMaybe(item.brotli),
 			];
+
+			if (includeGzip) cells.push(formatMaybe(item.gzip));
+			if (includeBrotli) cells.push(formatMaybe(item.brotli));
 			return ["| ", cells.join(" | "), " |"].join("");
 		})
 		.join("\n");
@@ -55,12 +67,16 @@ function formatText(artifacts: ArtifactSize[], options: FormatArtifactOptions): 
 
 	return artifacts
 		.map((item) => {
-			const parts = [
+			const includeGzip = item.gzip !== null;
+			const includeBrotli = item.brotli !== null;
+
+			const parts: string[] = [
 				`files=${colorize(String(item.files.length))}`,
 				`size=${colorize(prettySize(item.size))}`,
-				`gzip=${colorize(formatMaybe(item.gzip))}`,
-				`brotli=${colorize(formatMaybe(item.brotli))}`,
 			];
+
+			if (includeGzip) parts.push(`gzip=${colorize(formatMaybe(item.gzip))}`);
+			if (includeBrotli) parts.push(`brotli=${colorize(formatMaybe(item.brotli))}`);
 
 			const header = `${item.artifact}: ${parts.join(", ")}`;
 
@@ -71,11 +87,11 @@ function formatText(artifacts: ArtifactSize[], options: FormatArtifactOptions): 
 			const fileLines = fileDetails.map((f, i) => {
 				const isLast = i === fileDetails.length - 1;
 				const symbol = isLast ? "└" : "├";
-				const cells = [
-					` ${symbol} ${f.filename} size=${colorize(prettySize(f.size))}`,
-					`gzip=${colorize(formatMaybe(f.gzip))}`,
-					`brotli=${colorize(formatMaybe(f.brotli))}`,
-				];
+				const cells: string[] = [` ${symbol} ${f.filename} size=${colorize(prettySize(f.size))}`];
+
+				if (includeGzip) cells.push(`gzip=${colorize(formatMaybe(f.gzip))}`);
+				if (includeBrotli) cells.push(`brotli=${colorize(formatMaybe(f.brotli))}`);
+
 				return cells.join(", ");
 			});
 
