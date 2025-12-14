@@ -12,6 +12,7 @@ import {
 	resolve,
 	toArray,
 	writeFile,
+	writeGithub,
 } from "./utils/index.ts";
 
 interface CliOptions {
@@ -43,13 +44,6 @@ interface CompareOptions {
 	formatOptions: { header: boolean };
 	console?: Console;
 	fs?: typeof nodefs;
-}
-
-interface WriteGithubOptions {
-	env: NodeJS.ProcessEnv;
-	key: string;
-	output: string;
-	fs: typeof nodefs;
 }
 
 export async function cli(options: CliOptions): Promise<void> {
@@ -204,7 +198,7 @@ export async function cli(options: CliOptions): Promise<void> {
 }
 
 export async function analyze(options: AnalyzeOptions): Promise<void> {
-	const { cwd, fs = nodefs, formatOptions } = options;
+	const { cwd, env, fs = nodefs, formatOptions } = options;
 	const { header } = formatOptions;
 	const configPath = resolve(options.cwd, options.configFile);
 	const config = await readConfigFile(configPath, options.fs);
@@ -238,17 +232,12 @@ export async function analyze(options: AnalyzeOptions): Promise<void> {
 	for (const spec of options.outputGithub) {
 		const { format: fmt, key } = spec;
 		const output = formatArtifact(results, fmt, { header });
-		await writeGithub({
-			fs,
-			env: options.env,
-			key,
-			output,
-		});
+		await writeGithub(output, { fs, env, key });
 	}
 }
 
 export async function compare(options: CompareOptions): Promise<void> {
-	const { cwd, fs = nodefs, formatOptions } = options;
+	const { cwd, env, fs = nodefs, formatOptions } = options;
 	const { header } = formatOptions;
 	const basePath = resolve(options.cwd, options.base);
 	const currentPath = resolve(options.cwd, options.current);
@@ -272,22 +261,6 @@ export async function compare(options: CompareOptions): Promise<void> {
 	for (const spec of options.outputGithub) {
 		const { format: fmt, key } = spec;
 		const output = formatDiff(diff, fmt, { header });
-		await writeGithub({
-			fs,
-			env: options.env,
-			key,
-			output,
-		});
+		await writeGithub(output, { fs, env, key });
 	}
-}
-
-async function writeGithub({ fs, env, key, output }: WriteGithubOptions): Promise<void> {
-	const dst = env["GITHUB_OUTPUT"];
-	if (!dst) {
-		return;
-	}
-
-	const value = output.replace(/\r/g, "");
-	const payload = `${key}<<EOF\n${value}\nEOF\n`;
-	await fs.appendFile(dst, payload, "utf8");
 }
