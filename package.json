@@ -52,9 +52,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@html-validate/eslint-config": "6.11.1",
-    "@html-validate/eslint-config-typescript": "6.11.1",
-    "@html-validate/eslint-config-typescript-typeinfo": "6.11.1",
+    "@html-validate/eslint-config": "6.11.2",
+    "@html-validate/eslint-config-typescript": "6.11.2",
+    "@html-validate/eslint-config-typescript-typeinfo": "6.11.2",
     "@html-validate/prettier-config": "3.1.10",
     "@microsoft/api-extractor": "7.55.2",
     "@tsconfig/node22": "22.0.5",
