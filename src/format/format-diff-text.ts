@@ -53,5 +53,5 @@ export function textFormat(results: ArtifactDiff[], options: FormatDiffOptions):
 				}
 			}
 		})
-		.join("\n");
+		.join("\n\n");
 }

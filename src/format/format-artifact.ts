@@ -97,7 +97,7 @@ function formatText(artifacts: ArtifactSize[], options: FormatArtifactOptions): 
 
 			return [header, ...fileLines].join("\n");
 		})
-		.join("\n");
+		.join("\n\n");
 }
 
 /**

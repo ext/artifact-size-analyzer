@@ -379,7 +379,9 @@ describe("formatDiff()", () => {
 			const out = formatDiff(updated, "text");
 			expect(out).toMatchInlineSnapshot(`
 				app: files=2 (+0), size=100B (+10B), gzip=80B (+5B), brotli=70B (-2B)
+
 				lib: files=1 (+0), size=200B (+0B), gzip=150B (+0B), brotli=120B (+0B)
+
 				vendor: files=1 (+0), size=250B (-50B), gzip=210B (-40B), brotli=200B (-30B)
 			`);
 		});
@@ -402,6 +404,7 @@ describe("formatDiff()", () => {
 			const out = formatDiff(updatedOneAlgorithm, "text", { color: false, header: true });
 			expect(out).toMatchInlineSnapshot(`
 				one-a: files=0 (+0), size=100B (+10B), gzip=80B (+5B)
+
 				one-b: files=0 (+0), size=60B (+10B), gzip=45B (+5B)
 			`);
 		});
@@ -410,6 +413,7 @@ describe("formatDiff()", () => {
 			const out = formatDiff(updatedBothDisabled, "text", { color: false, header: true });
 			expect(out).toMatchInlineSnapshot(`
 				none-a: files=0 (+0), size=100B (+10B)
+
 				none-b: files=0 (+0), size=60B (+10B)
 			`);
 		});
@@ -418,7 +422,9 @@ describe("formatDiff()", () => {
 			const out = formatDiff(updatedMixedAlgorithms, "text", { color: false, header: true });
 			expect(out).toMatchInlineSnapshot(`
 				all-enabled: files=0 (+0), size=130B (+10B), gzip=95B (+5B), brotli=85B (+5B)
+
 				brotli-only: files=0 (+0), size=75B (+5B), brotli=62B (+2B)
+
 				all-disabled: files=0 (+0), size=40B (+10B)
 			`);
 		});
@@ -446,7 +452,9 @@ describe("formatDiff()", () => {
 			const out = formatDiff(updated, "text", { color: true, header: true });
 			expect(out).toMatchInlineSnapshot(`
 				app: files=<cyan>2</cyan> (+0), size=<cyan>100B</cyan> (+10B), gzip=<cyan>80B</cyan> (+5B), brotli=<cyan>70B</cyan> (-2B)
+
 				lib: files=<cyan>1</cyan> (+0), size=<cyan>200B</cyan> (+0B), gzip=<cyan>150B</cyan> (+0B), brotli=<cyan>120B</cyan> (+0B)
+
 				vendor: files=<cyan>1</cyan> (+0), size=<cyan>250B</cyan> (-50B), gzip=<cyan>210B</cyan> (-40B), brotli=<cyan>200B</cyan> (-30B)
 			`);
 		});

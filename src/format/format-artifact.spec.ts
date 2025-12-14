@@ -175,6 +175,7 @@ describe("formatArtifact()", () => {
 			app: files=2, size=100B, gzip=80B, brotli=70B
 			 ├ dist/a.js size=70B, gzip=60B, brotli=50B
 			 └ dist/b.js size=30B, gzip=20B, brotli=20B
+
 			lib: files=1, size=200B, gzip=150B, brotli=120B
 			 └ dist/lib.js size=200B, gzip=150B, brotli=120B
 		`);
@@ -186,6 +187,7 @@ describe("formatArtifact()", () => {
 			app: files=<cyan>2</cyan>, size=<cyan>100B</cyan>, gzip=<cyan>80B</cyan>, brotli=<cyan>70B</cyan>
 			 ├ dist/a.js size=<cyan>70B</cyan>, gzip=<cyan>60B</cyan>, brotli=<cyan>50B</cyan>
 			 └ dist/b.js size=<cyan>30B</cyan>, gzip=<cyan>20B</cyan>, brotli=<cyan>20B</cyan>
+
 			lib: files=<cyan>1</cyan>, size=<cyan>200B</cyan>, gzip=<cyan>150B</cyan>, brotli=<cyan>120B</cyan>
 			 └ dist/lib.js size=<cyan>200B</cyan>, gzip=<cyan>150B</cyan>, brotli=<cyan>120B</cyan>
 		`);
