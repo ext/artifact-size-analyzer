@@ -1,5 +1,4 @@
 import nodefs from "node:fs/promises";
-import path from "node:path";
 import yargs from "yargs";
 import { analyzeArtifact } from "./analyze-artifact.ts";
 import { type ArtifactSize } from "./artifact-size.ts";
@@ -7,11 +6,7 @@ import { compareArtifacts } from "./compare/index.ts";
 import { type Format, formatArtifact, formatDiff, formats } from "./format/index.ts";
 import { readConfigFile } from "./read-config-file.ts";
 import { readJsonFile } from "./read-json-file.ts";
-import { type ParsedOutput, parseOutput, toArray } from "./utils/index.ts";
-
-function resolve(cwd: string, p: string): string {
-	return path.isAbsolute(p) ? p : path.join(cwd, p);
-}
+import { type ParsedOutput, parseOutput, resolve, toArray } from "./utils/index.ts";
 
 interface CliOptions {
 	cwd: string;
