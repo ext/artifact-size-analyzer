@@ -8,7 +8,7 @@ Ideal for pull requests — it highlights size regressions and tracks compressed
 - ✅ Multi-artifact: measure multiple artifacts in one pass
 - ✅ Outputs: JSON, Markdown, and plain text (for Actions, CLI, and API)
 
-![Screenshot of a pull request comment made by this GitHub Action](example-comment.png)
+![Screenshot of a pull request comment made by this GitHub Action](https://raw.githubusercontent.com/ext/artifact-size-analyzer/refs/heads/main/example-comment.png)
 
 ## Table of Contents
 
