@@ -1,23 +1,6 @@
-import { Console } from "node:console";
-import type nodefs from "node:fs/promises";
-import { Volume } from "memfs";
-import { WritableStreamBuffer } from "stream-buffers";
 import { expect, it } from "vitest";
 import { createParser } from "./cli.ts";
-
-async function createVolume(json: Record<string, string> = {}): Promise<{ fs: typeof nodefs }> {
-	const vol = Volume.fromJSON(json);
-	const fs = vol.promises as unknown as typeof nodefs;
-	await fs.mkdir("/project/dist", { recursive: true });
-	await fs.mkdir("/project/temp", { recursive: true });
-	return { fs };
-}
-
-function createConsole(): { stream: WritableStreamBuffer; console: Console } {
-	const stream = new WritableStreamBuffer();
-	const bufConsole = new Console(stream, stream);
-	return { stream, console: bufConsole };
-}
+import { createConsole, createVolume } from "./test-helpers.ts";
 
 it("should write to GitHub Actions output when --output-github is provided", async () => {
 	const { stream, console } = createConsole();

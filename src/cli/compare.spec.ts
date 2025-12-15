@@ -1,43 +1,9 @@
-import { Console } from "node:console";
-import type nodefs from "node:fs/promises";
-import { Volume } from "memfs";
-import { WritableStreamBuffer } from "stream-buffers";
 import { expect, it } from "vitest";
 import { ArtifactDiff } from "../artifact-diff.ts";
 import { type ArtifactSize } from "../artifact-size.ts";
-import { type Config } from "../config/index.ts";
+import { readJsonFile } from "../utils/index.ts";
 import { createParser } from "./cli.ts";
-
-async function createVolume(json: Record<string, string> = {}): Promise<{ fs: typeof nodefs }> {
-	const vol = Volume.fromJSON(json);
-	const fs = vol.promises as unknown as typeof nodefs;
-	await fs.mkdir("/project/dist", { recursive: true });
-	await fs.mkdir("/project/temp", { recursive: true });
-	return { fs };
-}
-
-function createConsole(): { stream: WritableStreamBuffer; console: Console } {
-	const stream = new WritableStreamBuffer();
-	const bufConsole = new Console(stream, stream);
-	return { stream, console: bufConsole };
-}
-
-async function readJsonFile<T = unknown>(fs: typeof nodefs, filePath: string): Promise<T> {
-	const content = await fs.readFile(filePath, "utf-8");
-	return JSON.parse(content) as T;
-}
-
-function makeConfig(): Config {
-	return {
-		artifacts: [
-			{
-				id: "app",
-				name: "app",
-				include: "dist/**/*.js",
-			},
-		],
-	};
-}
+import { createConsole, createVolume, makeConfig } from "./test-helpers.ts";
 
 it("reports no differences for identical artifacts", async () => {
 	const { stream, console } = createConsole();
@@ -74,9 +40,9 @@ it("reports no differences for identical artifacts", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(1);
@@ -155,9 +121,9 @@ it("detects added artifact via config change", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(1);
@@ -240,9 +206,9 @@ it("detects removed artifact via config change", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(2);
@@ -301,9 +267,9 @@ it("reports size increase when file grows", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(1);
@@ -367,9 +333,9 @@ it("detects added file between baseline and current", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(1);
@@ -440,9 +406,9 @@ it("detects removed file between baseline and current", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(1);
@@ -520,9 +486,9 @@ it("compares multiple artifacts", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert returned artifact counts are correct */
 	expect(base).toHaveLength(2);
@@ -610,9 +576,9 @@ it("respects exclude patterns in config", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert vendor is excluded from results as configured */
 	expect(base[0].files).toEqual([expect.objectContaining({ filename: "dist/app.js" })]);
@@ -676,9 +642,9 @@ it("handles empty artifacts gracefully", async () => {
 		"--output-file=temp/diff.json",
 	]);
 
-	const base = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/base.json");
-	const current = await readJsonFile<ArtifactSize[]>(fs, "/project/temp/current.json");
-	const diff = await readJsonFile<ArtifactDiff[]>(fs, "/project/temp/diff.json");
+	const base = await readJsonFile<ArtifactSize[]>("/project/temp/base.json", { fs });
+	const current = await readJsonFile<ArtifactSize[]>("/project/temp/current.json", { fs });
+	const diff = await readJsonFile<ArtifactDiff[]>("/project/temp/diff.json", { fs });
 
 	/* assert empty artifacts are handled correctly */
 	expect(base).toHaveLength(1);
