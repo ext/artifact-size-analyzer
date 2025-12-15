@@ -2,7 +2,7 @@
 
 import util from "node:util";
 import { type ArtifactSize } from "../artifact-size.ts";
-import { prettySize } from "../pretty-size.ts";
+import { prettySize } from "../utils/index.ts";
 import { type Format } from "./formats.ts";
 
 /**

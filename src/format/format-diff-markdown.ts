@@ -1,5 +1,5 @@
 import { type ArtifactDiff } from "../artifact-diff.ts";
-import { prettySize } from "../pretty-size.ts";
+import { prettySize } from "../utils/index.ts";
 import { formatPercent } from "./format-percent.ts";
 import { formatSize } from "./format-size.ts";
 
