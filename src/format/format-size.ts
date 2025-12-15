@@ -1,5 +1,5 @@
 import { type ArtifactSizeDiff } from "../artifact-diff.ts";
-import { prettySize } from "../pretty-size.ts";
+import { prettySize } from "../utils/index.ts";
 
 /**
  * @internal
