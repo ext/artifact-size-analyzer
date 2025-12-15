@@ -1,30 +1,8 @@
-import { Console } from "node:console";
-import type nodefs from "node:fs/promises";
-import { Volume } from "memfs";
-import { WritableStreamBuffer } from "stream-buffers";
 import { expect, it } from "vitest";
 import { createParser } from "./cli.ts";
+import { createConsole, createVolume, setupStringSerializer } from "./test-helpers.ts";
 
-expect.addSnapshotSerializer({
-	test(value) {
-		return typeof value === "string";
-	},
-	serialize(value) {
-		return value;
-	},
-});
-
-async function createVolume(): Promise<{ fs: typeof nodefs }> {
-	const vol = Volume.fromJSON({});
-	const fs = vol.promises as unknown as typeof nodefs;
-	return { fs };
-}
-
-function createConsole(): { stream: WritableStreamBuffer; console: Console } {
-	const stream = new WritableStreamBuffer();
-	const bufConsole = new Console(stream, stream);
-	return { stream, console: bufConsole };
-}
+setupStringSerializer();
 
 it("should display help message", async () => {
 	const { console } = createConsole();
