@@ -48,7 +48,7 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "postpublish": "release-postpublish",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "prettier": "@html-validate/prettier-config",
   "dependencies": {
