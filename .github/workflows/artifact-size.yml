@@ -18,6 +18,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.ref }}
 
+      - name: Checkout head branch (action)
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          path: head
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -33,7 +39,7 @@ jobs:
         run: npm pack
 
       - name: Run analyzer (base)
-        uses: ./analyze
+        uses: ./head/analyze
         with:
           config-file: ./example-config.json
           artifact-name: base-size
