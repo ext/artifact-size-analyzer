@@ -1,5 +1,19 @@
 # artifact-size-analyzer changelog
 
+## 1.1.0 (2025-12-17)
+
+### Features
+
+- **github:** fetch configuration from head branch by default ([0bf63e1](https://github.com/ext/artifact-size-analyzer/commit/0bf63e192d3df902cf387b838d50c96d5657986e))
+
+### Bug Fixes
+
+- add newline between artifacts in text output for readability ([9aec140](https://github.com/ext/artifact-size-analyzer/commit/9aec1401561951a95c95b1cd3c47121ad5ccf77b))
+- better error message when config is missing ([04f7fa4](https://github.com/ext/artifact-size-analyzer/commit/04f7fa44323cc0c17fb2a2228ea1766e8c6e1b47))
+- fix bin script permissions ([0d4461e](https://github.com/ext/artifact-size-analyzer/commit/0d4461e15b8f12f8fe6a279d5694d728c6464919))
+- handle globstar `**` include patterns ([5f561f3](https://github.com/ext/artifact-size-analyzer/commit/5f561f3915d47746f7a80013ef1348f67f221b77))
+- omit disabled compression columns when analyzing ([30eaf56](https://github.com/ext/artifact-size-analyzer/commit/30eaf56c86278fae2b103434e8e8febfa228de3e))
+
 ## 1.0.2 (2025-12-14)
 
 ### Bug Fixes
