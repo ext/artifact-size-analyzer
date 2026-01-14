@@ -955,8 +955,6 @@ it("should show unchanged artifacts in details when --unchanged=collapse is used
 		|---|---|---:|---:|---:|
 		| app | 1 file(s) | 50B → **75B** (+25B) | gzip: 24B<br>brotli: 11B | +50.00% |
 
-		*1 artifact collapsed*
-
 		<details>
 		<summary>1 unchanged artifact</summary>
 

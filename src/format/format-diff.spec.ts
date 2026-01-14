@@ -416,8 +416,6 @@ describe("formatDiff()", () => {
 				| app | 2 file(s) | 90B → **100B** (+10B) | gzip: 80B<br>brotli: 70B | +11.11% |
 				| vendor | 1 file(s) | 300B → **250B** (-50B) | gzip: 210B<br>brotli: 200B | -16.67% |
 
-				*1 artifact collapsed*
-
 				<details>
 				<summary>1 unchanged artifact</summary>
 
@@ -439,8 +437,6 @@ describe("formatDiff()", () => {
 				| Artifact | Files | Size | Compressed | Change |
 				|---|---|---:|---:|---:|
 				| app | 2 file(s) | 90B → **100B** (+10B) | gzip: 80B<br>brotli: 70B | +11.11% |
-
-				*2 artifacts collapsed*
 
 				<details>
 				<summary>2 unchanged artifacts</summary>
@@ -464,8 +460,6 @@ describe("formatDiff()", () => {
 				| Artifact | Files | Size | Change |
 				|---|---|---:|---:|
 				| app | 1 file(s) | 90B → **100B** (+10B) | +11.11% |
-
-				*1 artifact collapsed*
 
 				<details>
 				<summary>1 unchanged artifact</summary>

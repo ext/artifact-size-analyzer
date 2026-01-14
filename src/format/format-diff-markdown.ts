@@ -155,6 +155,10 @@ function generateTrailer(
 	if (omittedCount > 0) {
 		const s = omittedCount === 1 ? "" : "s";
 		const action = unchanged === "collapse" ? "collapsed" : "omitted";
+		/* For collapsed artifacts, don't show the trailer since the details section will show them */
+		if (unchanged === "collapse") {
+			return "";
+		}
 		return `\n\n*${String(omittedCount)} artifact${s} ${action}*`;
 	}
 	return "";
