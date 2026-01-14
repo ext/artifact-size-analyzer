@@ -1,5 +1,11 @@
 # artifact-size-analyzer changelog
 
+## 1.2.1 (2026-01-14)
+
+### Bug Fixes
+
+- remove redundant "N unchanged artifacts" when collapsing ([c721fb9](https://github.com/ext/artifact-size-analyzer/commit/c721fb96436047c6df1e6ecad6e378d34800e875))
+
 ## 1.2.0 (2025-12-19)
 
 ### Features
