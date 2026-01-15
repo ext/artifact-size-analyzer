@@ -110,7 +110,7 @@ describe("formatDiff()", () => {
 
 				| Artifact | Files | Size | Compressed | Change |
 				|---|---|---:|---:|---:|
-				| new (added) | 1 file(s) | N/A → **150B** | gzip: 100B<br>brotli: 80B | +0.00% |
+				| new (added) | 1 file(s) | **150B** | gzip: 100B<br>brotli: 80B | +150B |
 			`);
 		});
 
@@ -123,7 +123,7 @@ describe("formatDiff()", () => {
 
 				| Artifact | Files | Size | Compressed | Change |
 				|---|---|---:|---:|---:|
-				| old (removed) | N/A | 200B → N/A | N/A | N/A |
+				| old (removed) | N/A | N/A | N/A | -200B |
 			`);
 		});
 
@@ -192,7 +192,7 @@ describe("formatDiff()", () => {
 
 				| Artifact | Files | Size | Change |
 				|---|---|---:|---:|
-				| new-nc (added) | 1 file(s) | N/A → **150B** | +0.00% |
+				| new-nc (added) | 1 file(s) | **150B** | +150B |
 			`);
 		});
 
@@ -205,7 +205,7 @@ describe("formatDiff()", () => {
 
 				| Artifact | Files | Size | Change |
 				|---|---|---:|---:|
-				| old-nc (removed) | N/A | 200B → N/A | N/A |
+				| old-nc (removed) | N/A | N/A | -200B |
 			`);
 		});
 

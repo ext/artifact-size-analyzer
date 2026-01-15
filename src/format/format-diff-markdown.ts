@@ -37,28 +37,28 @@ function compressedColumn(it: ArtifactDiff): string {
 
 function renderAddedRow(it: ArtifactDiff, showCompressed: boolean): string {
 	const name = it.name.replace(/ /g, "&nbsp;");
-	const sizeCol = `N/A → **${num(it.raw.newSize)}**`;
+	const sizeCol = `**${num(it.raw.newSize)}**`;
+	const change = `+${num(it.raw.newSize)}`;
 
 	if (!showCompressed) {
-		const percent = "+0.00%";
-		return `| ${name} (added) | ${String(it.newFiles.length)} file(s) | ${sizeCol} | ${percent} |`;
+		return `| ${name} (added) | ${String(it.newFiles.length)} file(s) | ${sizeCol} | ${change} |`;
 	}
 
 	const compressedCol = compressedColumn(it);
-	const percent = "+0.00%";
 
-	return `| ${name} (added) | ${String(it.newFiles.length)} file(s) | ${sizeCol} | ${compressedCol} | ${percent} |`;
+	return `| ${name} (added) | ${String(it.newFiles.length)} file(s) | ${sizeCol} | ${compressedCol} | ${change} |`;
 }
 
 function renderRemovedRow(it: ArtifactDiff, showCompressed: boolean): string {
 	const name = it.name.replace(/ /g, "&nbsp;");
-	const sizeCol = `${num(it.raw.oldSize)} → N/A`;
+	const sizeCol = "N/A";
+	const change = `-${num(it.raw.oldSize)}`;
 
 	if (!showCompressed) {
-		return `| ${name} (removed) | N/A | ${sizeCol} | N/A |`;
+		return `| ${name} (removed) | N/A | ${sizeCol} | ${change} |`;
 	}
 
-	return `| ${name} (removed) | N/A | ${sizeCol} | N/A | N/A |`;
+	return `| ${name} (removed) | N/A | ${sizeCol} | N/A | ${change} |`;
 }
 
 function renderUpdatedRow(it: ArtifactDiff, showCompressed: boolean): string {
