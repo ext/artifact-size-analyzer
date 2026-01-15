@@ -1,5 +1,11 @@
 # artifact-size-analyzer changelog
 
+## 1.2.2 (2026-01-15)
+
+### Bug Fixes
+
+- dont show 0% for added artifacts ([6e07fab](https://github.com/ext/artifact-size-analyzer/commit/6e07fab600d7ab3c77a086f40db55bf4b9d06f95))
+
 ## 1.2.1 (2026-01-14)
 
 ### Bug Fixes
