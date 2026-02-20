@@ -1,6 +1,6 @@
 {
   "name": "artifact-size-analyzer",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Zero-opinion tool to analyze and compare artifact sizes across branches and CI runs",
   "keywords": [
     "artifact",
