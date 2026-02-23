@@ -59,6 +59,7 @@ const unchangedWithNullCompressionArtifact: ArtifactDiff = {
 
 describe("filterUnchangedArtifacts()", () => {
 	it("should return all artifacts when unchanged is 'show'", () => {
+		expect.assertions(2);
 		const artifacts = [unchangedArtifact, changedArtifact, addedArtifact, removedArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "show");
 		expect(result).toEqual(artifacts);
@@ -66,6 +67,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should filter out unchanged artifacts when unchanged is 'hide'", () => {
+		expect.assertions(2);
 		const artifacts = [unchangedArtifact, changedArtifact, addedArtifact, removedArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([changedArtifact, addedArtifact, removedArtifact]);
@@ -73,6 +75,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should always keep added artifacts", () => {
+		expect.assertions(2);
 		const artifacts = [addedArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([addedArtifact]);
@@ -80,6 +83,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should always keep removed artifacts", () => {
+		expect.assertions(2);
 		const artifacts = [removedArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([removedArtifact]);
@@ -87,6 +91,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should handle artifacts with null compression correctly", () => {
+		expect.assertions(2);
 		const artifacts = [unchangedWithNullCompressionArtifact, changedArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([changedArtifact]);
@@ -94,6 +99,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should return empty array when all artifacts are unchanged and unchanged is 'hide'", () => {
+		expect.assertions(2);
 		const artifacts = [unchangedArtifact, unchangedWithNullCompressionArtifact];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([]);
@@ -101,6 +107,7 @@ describe("filterUnchangedArtifacts()", () => {
 	});
 
 	it("should handle empty array", () => {
+		expect.assertions(2);
 		const artifacts: ArtifactDiff[] = [];
 		const result = filterUnchangedArtifacts(artifacts, "hide");
 		expect(result).toEqual([]);

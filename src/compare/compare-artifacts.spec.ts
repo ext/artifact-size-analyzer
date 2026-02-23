@@ -14,6 +14,7 @@ const current = [
 
 describe("compareArtifacts()", () => {
 	it("should compare two artifacts", () => {
+		expect.assertions(1);
 		const res = compareArtifacts(base, current);
 		expect(res).toEqual([
 			{

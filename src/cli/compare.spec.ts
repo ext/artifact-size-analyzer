@@ -6,6 +6,7 @@ import { createParser } from "./cli.ts";
 import { createConsole, createVolume, makeConfig } from "./test-helpers.ts";
 
 it("should report no differences for identical artifacts", async () => {
+	expect.assertions(14);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -71,6 +72,7 @@ it("should report no differences for identical artifacts", async () => {
 });
 
 it("should detect added artifact via config change", async () => {
+	expect.assertions(15);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -139,10 +141,7 @@ it("should detect added artifact via config change", async () => {
 	expect(libArtifact).toBeDefined();
 	expect(libArtifact?.files).toEqual([expect.objectContaining({ filename: "dist/lib/lib.js" })]);
 
-	const libDiff = diff.find((d) => d.id === "lib");
-	if (!libDiff) {
-		throw new Error("lib diff not found");
-	}
+	const libDiff = diff.find((d) => d.id === "lib")!;
 	expect(libDiff.status).toBe("added");
 	expect(libDiff.raw.oldSize).toBe(0);
 	expect(libDiff.raw.newSize).toBeGreaterThan(0);
@@ -158,6 +157,7 @@ it("should detect added artifact via config change", async () => {
 });
 
 it("should detect removed artifact via config change", async () => {
+	expect.assertions(9);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -215,10 +215,7 @@ it("should detect removed artifact via config change", async () => {
 	expect(current).toHaveLength(1);
 	expect(diff).toHaveLength(2);
 
-	const libDiff = diff.find((d) => d.id === "lib");
-	if (!libDiff) {
-		throw new Error("lib diff not found");
-	}
+	const libDiff = diff.find((d) => d.id === "lib")!;
 	expect(libDiff.status).toBe("removed");
 	expect(libDiff.raw.newSize).toBe(0);
 
@@ -233,6 +230,7 @@ it("should detect removed artifact via config change", async () => {
 });
 
 it("should report size increase when file grows", async () => {
+	expect.assertions(14);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -298,6 +296,7 @@ it("should report size increase when file grows", async () => {
 });
 
 it("should detect added file between baseline and current", async () => {
+	expect.assertions(14);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -370,6 +369,7 @@ it("should detect added file between baseline and current", async () => {
 });
 
 it("should detect removed file between baseline and current", async () => {
+	expect.assertions(14);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -443,6 +443,7 @@ it("should detect removed file between baseline and current", async () => {
 });
 
 it("should compare multiple artifacts", async () => {
+	expect.assertions(17);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -531,6 +532,7 @@ it("should compare multiple artifacts", async () => {
 });
 
 it("should respect exclude patterns in config", async () => {
+	expect.assertions(11);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -602,6 +604,7 @@ it("should respect exclude patterns in config", async () => {
 });
 
 it("should handle empty artifacts gracefully", async () => {
+	expect.assertions(12);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -671,6 +674,7 @@ it("should handle empty artifacts gracefully", async () => {
 });
 
 it("should output to console when no --output-file is provided", async () => {
+	expect.assertions(1);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -713,6 +717,7 @@ it("should output to console when no --output-file is provided", async () => {
 });
 
 it("should output to GitHub Actions when --output-github is provided", async () => {
+	expect.assertions(1);
 	const { console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify(makeConfig()),
@@ -801,6 +806,7 @@ it("should output to GitHub Actions when --output-github is provided", async () 
 });
 
 it("should hide unchanged artifacts when --no-unchanged is used", async () => {
+	expect.assertions(1);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -853,6 +859,7 @@ it("should hide unchanged artifacts when --no-unchanged is used", async () => {
 });
 
 it("should show all artifacts when --no-unchanged is not used", async () => {
+	expect.assertions(1);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -904,6 +911,7 @@ it("should show all artifacts when --no-unchanged is not used", async () => {
 });
 
 it("should show unchanged artifacts in details when --unchanged=collapse is used", async () => {
+	expect.assertions(1);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({

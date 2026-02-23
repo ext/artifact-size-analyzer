@@ -4,11 +4,13 @@ import { normalizeConfig } from "./normalize-config.ts";
 
 describe("normalizeConfig()", () => {
 	it("should handle empty config", () => {
+		expect.assertions(1);
 		const config: Config = {};
 		expect(normalizeConfig(config)).toEqual({ artifacts: [] });
 	});
 
 	it("should handle empty artifact", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [{ id: "empty", name: "empty" }],
 		};
@@ -20,6 +22,7 @@ describe("normalizeConfig()", () => {
 	});
 
 	it("should normalize include/exclude strings to array", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [{ id: "test", name: "test", include: "dist/*.js", exclude: "dist/foo.js" }],
 		};
@@ -37,6 +40,7 @@ describe("normalizeConfig()", () => {
 	});
 
 	it("should preserve include/exclude arrays", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [
 				{
@@ -61,6 +65,7 @@ describe("normalizeConfig()", () => {
 	});
 
 	it("should preserve compression array", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [{ id: "c2", name: "c2", include: [], exclude: [], compression: ["brotli"] }],
 		};
@@ -68,6 +73,7 @@ describe("normalizeConfig()", () => {
 	});
 
 	it("should normalize single compression string to array", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [{ id: "c3", name: "c3", include: [], exclude: [], compression: "gzip" }],
 		};
@@ -75,6 +81,7 @@ describe("normalizeConfig()", () => {
 	});
 
 	it("should treat false compression as empty array", () => {
+		expect.assertions(1);
 		const config: Config = {
 			artifacts: [{ id: "c4", name: "c4", include: [], exclude: [], compression: false }],
 		};

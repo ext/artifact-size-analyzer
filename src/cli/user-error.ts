@@ -13,7 +13,7 @@ export class UserError extends Error {
 
 		super(message);
 
-		this.name = UserError.name;
+		this.name = "UserError";
 		this.code = code;
 		this.exitCode = exitCode;
 	}

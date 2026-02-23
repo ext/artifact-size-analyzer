@@ -4,6 +4,7 @@ import { compareArtifact } from "./compare-artifact.ts";
 
 describe("compareArtifact()", () => {
 	it("should compute differences", () => {
+		expect.assertions(1);
 		const base: ArtifactSize = {
 			id: "app",
 			artifact: "app",
@@ -34,6 +35,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should handle added artifacts", () => {
+		expect.assertions(1);
 		const base: ArtifactSize | undefined = undefined;
 		const current: ArtifactSize = {
 			id: "new",
@@ -57,6 +59,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should handle removed artifacts", () => {
+		expect.assertions(1);
 		const base: ArtifactSize = {
 			id: "old",
 			artifact: "old",
@@ -80,6 +83,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should set gzip to null when either base or current gzip is null", () => {
+		expect.assertions(1);
 		const base: ArtifactSize = {
 			id: "app",
 			artifact: "app",
@@ -103,6 +107,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should set brotli to null when either base or current brotli is null", () => {
+		expect.assertions(2);
 		const base: ArtifactSize = {
 			id: "app",
 			artifact: "app",
@@ -127,6 +132,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should set gzip/brotli to null when current compression is null", () => {
+		expect.assertions(2);
 		const base: ArtifactSize | undefined = undefined;
 		const current: ArtifactSize = {
 			id: "new",
@@ -143,6 +149,7 @@ describe("compareArtifact()", () => {
 	});
 
 	it("should set gzip/brotli to null when base compression is null", () => {
+		expect.assertions(2);
 		const base: ArtifactSize = {
 			id: "old",
 			artifact: "old",

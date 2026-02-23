@@ -25,7 +25,7 @@ export function parseOutput(
 	const { paramName, requireFormat } = options;
 
 	if (typeof value !== "string") {
-		throw new Error(`${paramName} must be a string in the form 'format:key'`);
+		throw new TypeError(`${paramName} must be a string in the form 'format:key'`);
 	}
 
 	const parts = value.split(":", 2);

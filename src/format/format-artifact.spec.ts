@@ -38,6 +38,7 @@ const data = [
 
 describe("formatArtifact()", () => {
 	it("should format json", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "json");
 		const parsed = JSON.parse(out);
 		expect(parsed).toEqual([
@@ -81,6 +82,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should format artifacts with no files and no compression", () => {
+		expect.assertions(3);
 		const empty: ArtifactSize[] = [
 			{
 				id: "empty",
@@ -113,6 +115,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should format artifact with only one algorithm enabled", () => {
+		expect.assertions(3);
 		const single: ArtifactSize[] = [
 			{
 				id: "single",
@@ -148,6 +151,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should format markdown", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "markdown");
 		expect(out).toMatchInlineSnapshot(`
 			## Artifact sizes
@@ -160,16 +164,19 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should include header when header is true", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "markdown", { header: true });
 		expect(out).toContain("## Artifact sizes");
 	});
 
 	it("should omit header when header is false", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "markdown", { color: false, header: false });
 		expect(out).not.toContain("## Artifact sizes");
 	});
 
 	it("should format text", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "text");
 		expect(out).toMatchInlineSnapshot(`
 			app: files=2, size=100B, gzip=80B, brotli=70B
@@ -182,6 +189,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should colorize text output", () => {
+		expect.assertions(1);
 		const out = formatArtifact(data, "text", { color: true, header: true });
 		expect(out).toMatchInlineSnapshot(`
 			app: files=<cyan>2</cyan>, size=<cyan>100B</cyan>, gzip=<cyan>80B</cyan>, brotli=<cyan>70B</cyan>
@@ -194,6 +202,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should handle files with mixed compression in text format", () => {
+		expect.assertions(1);
 		const mixedData: ArtifactSize[] = [
 			{
 				id: "mixed",
@@ -217,6 +226,7 @@ describe("formatArtifact()", () => {
 	});
 
 	it("should format text with no compression algorithms", () => {
+		expect.assertions(1);
 		const noCompressionData: ArtifactSize[] = [
 			{
 				id: "no-compression",

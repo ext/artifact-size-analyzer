@@ -5,6 +5,7 @@ import { createConsole, createVolume, setupStringSerializer } from "./test-helpe
 setupStringSerializer();
 
 it("should display help message", async () => {
+	expect.assertions(2);
 	const { console } = createConsole();
 	const { fs } = await createVolume();
 
@@ -15,8 +16,7 @@ it("should display help message", async () => {
 		fs,
 	});
 
-	return new Promise<void>((resolve) => {
-		expect.assertions(2);
+	await new Promise<void>((resolve) => {
 		parser.parseAsync("--help", (err: unknown, _argv: unknown, output: unknown) => {
 			expect(err).toBeUndefined();
 			expect(output).toMatchSnapshot();
@@ -26,6 +26,7 @@ it("should display help message", async () => {
 });
 
 it("should display analyze command help", async () => {
+	expect.assertions(2);
 	const { console } = createConsole();
 	const { fs } = await createVolume();
 
@@ -36,8 +37,7 @@ it("should display analyze command help", async () => {
 		fs,
 	});
 
-	return new Promise<void>((resolve) => {
-		expect.assertions(2);
+	await new Promise<void>((resolve) => {
 		parser.parseAsync("analyze --help", (err: unknown, _argv: unknown, output: unknown) => {
 			expect(err).toBeUndefined();
 			expect(output).toMatchSnapshot();
@@ -47,6 +47,7 @@ it("should display analyze command help", async () => {
 });
 
 it("should display compare command help", async () => {
+	expect.assertions(2);
 	const { console } = createConsole();
 	const { fs } = await createVolume();
 
@@ -57,8 +58,7 @@ it("should display compare command help", async () => {
 		fs,
 	});
 
-	return new Promise<void>((resolve) => {
-		expect.assertions(2);
+	await new Promise<void>((resolve) => {
 		parser.parseAsync("compare --help", (err: unknown, _argv: unknown, output: unknown) => {
 			expect(err).toBeUndefined();
 			expect(output).toMatchSnapshot();
