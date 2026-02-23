@@ -4,6 +4,7 @@ import { createConsole, createVolume } from "./test-helpers.ts";
 import { UserError } from "./user-error.ts";
 
 it("should write to GitHub Actions output when --output-github is provided", async () => {
+	expect.assertions(2);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -29,7 +30,7 @@ it("should write to GitHub Actions output when --output-github is provided", asy
 	]);
 
 	const content = await fs.readFile("/gha_out.txt", "utf8");
-	expect(content).toMatch(/^foo<<EOF\n[\s\S]*\nEOF\n$/);
+	expect(content).toMatch(/^foo<<EOF\n[\S\s]*\nEOF\n$/);
 
 	const stdout = stream.getContentsAsString("utf8");
 	expect(stdout).toMatchInlineSnapshot(`
@@ -55,6 +56,7 @@ it("should write to GitHub Actions output when --output-github is provided", asy
 });
 
 it("should write multiple GitHub outputs when multiple --output-github are provided", async () => {
+	expect.assertions(3);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -81,8 +83,8 @@ it("should write multiple GitHub outputs when multiple --output-github are provi
 	]);
 
 	const content = await fs.readFile("/gha_out.txt", "utf8");
-	expect(content).toMatch(/^foo<<EOF[\s\S]*?\nEOF\n/);
-	expect(content).toMatch(/bar<<EOF[\s\S]*?\nEOF\n$/);
+	expect(content).toMatch(/^foo<<EOF[\S\s]*?\nEOF\n/);
+	expect(content).toMatch(/bar<<EOF[\S\s]*?\nEOF\n$/);
 
 	const stdout = stream.getContentsAsString("utf8");
 	expect(stdout).toMatchInlineSnapshot(`
@@ -108,6 +110,7 @@ it("should write multiple GitHub outputs when multiple --output-github are provi
 });
 
 it("should silently do nothing when --output-github is provided but GITHUB_OUTPUT is not set", async () => {
+	expect.assertions(1);
 	const { stream, console } = createConsole();
 	const { fs } = await createVolume({
 		"/project/artifact-config.json": JSON.stringify({
@@ -150,6 +153,7 @@ it("should silently do nothing when --output-github is provided but GITHUB_OUTPU
 });
 
 it("should show friendly error message when config file does not exist", async () => {
+	expect.assertions(2);
 	const { console } = createConsole();
 	const { fs } = await createVolume({});
 

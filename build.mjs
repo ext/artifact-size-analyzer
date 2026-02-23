@@ -8,7 +8,7 @@ async function readJsonFile(path) {
 	return JSON.parse(content);
 }
 
-const { external = [] } = await readJsonFile(new URL("./package.json", import.meta.url));
+const { external = [] } = await readJsonFile(new URL("package.json", import.meta.url));
 
 async function build() {
 	const result = await esbuild.build({

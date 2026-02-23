@@ -36,7 +36,7 @@ function compressedColumn(it: ArtifactDiff): string {
 }
 
 function renderAddedRow(it: ArtifactDiff, showCompressed: boolean): string {
-	const name = it.name.replace(/ /g, "&nbsp;");
+	const name = it.name.replaceAll(" ", "&nbsp;");
 	const sizeCol = `**${num(it.raw.newSize)}**`;
 	const change = `+${num(it.raw.newSize)}`;
 
@@ -50,7 +50,7 @@ function renderAddedRow(it: ArtifactDiff, showCompressed: boolean): string {
 }
 
 function renderRemovedRow(it: ArtifactDiff, showCompressed: boolean): string {
-	const name = it.name.replace(/ /g, "&nbsp;");
+	const name = it.name.replaceAll(" ", "&nbsp;");
 	const sizeCol = "N/A";
 	const change = `-${num(it.raw.oldSize)}`;
 
@@ -62,7 +62,7 @@ function renderRemovedRow(it: ArtifactDiff, showCompressed: boolean): string {
 }
 
 function renderUpdatedRow(it: ArtifactDiff, showCompressed: boolean): string {
-	const name = it.name.replace(/ /g, "&nbsp;");
+	const name = it.name.replaceAll(" ", "&nbsp;");
 	const isChanged = it.raw.difference !== 0;
 	const sizeCol = isChanged
 		? `${num(it.raw.oldSize)} → **${num(it.raw.newSize)}** (${diff(it.raw.difference)})`
@@ -125,7 +125,7 @@ function generateDetailsSection(results: ArtifactDiff[], showDetails: boolean): 
 
 	const detailsRows = omittedArtifacts
 		.map((it) => {
-			const name = it.name.replace(/ /g, "&nbsp;");
+			const name = it.name.replaceAll(" ", "&nbsp;");
 			const sizeCol = num(it.raw.newSize);
 
 			if (!showCompressedInDetails) {

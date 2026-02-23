@@ -20,7 +20,7 @@ export async function writeGithub(content: string, options: WriteGithubOptions):
 		return;
 	}
 
-	const value = content.replace(/\r/g, "");
+	const value = content.replaceAll("\r", "");
 	const payload = `${key}<<EOF\n${value}\nEOF\n`;
 	await fs.appendFile(dst, payload, "utf8");
 }

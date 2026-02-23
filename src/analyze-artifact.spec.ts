@@ -8,6 +8,7 @@ const cwd = "/";
 
 describe("analyzeArtifact()", () => {
 	it("should aggregate sizes from single files", async () => {
+		expect.assertions(11);
 		const a = "a".repeat(2000);
 		const vol = Volume.fromJSON({ "/dist/a.js": a });
 		const fs = vol.promises as unknown as typeof nodefs;
@@ -23,7 +24,7 @@ describe("analyzeArtifact()", () => {
 		const result = await analyzeArtifact(artifact, { cwd, fs, compression });
 
 		/* aggregated results */
-		expect(result.size).toEqual(2000);
+		expect(result.size).toBe(2000);
 		expect(result.gzip).toBeGreaterThan(0);
 		expect(result.brotli).toBeGreaterThan(0);
 		expect(result.gzip).toBeLessThan(2000);
@@ -39,6 +40,7 @@ describe("analyzeArtifact()", () => {
 	});
 
 	it("should support disabling gzip (brotli only)", async () => {
+		expect.assertions(7);
 		const a = "a".repeat(2000);
 		const vol = Volume.fromJSON({ "/dist/a.js": a });
 		const fs = vol.promises as unknown as typeof nodefs;
@@ -53,7 +55,7 @@ describe("analyzeArtifact()", () => {
 		const compression = { gzip: false, brotli: true };
 		const result = await analyzeArtifact(artifact, { cwd, fs, compression });
 
-		expect(result.size).toEqual(2000);
+		expect(result.size).toBe(2000);
 		expect(result.gzip).toBeNull();
 		expect(result.brotli).toBeGreaterThan(0);
 		expect(result.files).toHaveLength(1);
@@ -64,6 +66,7 @@ describe("analyzeArtifact()", () => {
 	});
 
 	it("should support disabling brotli (gzip only)", async () => {
+		expect.assertions(7);
 		const a = "a".repeat(2000);
 		const vol = Volume.fromJSON({ "/dist/a.js": a });
 		const fs = vol.promises as unknown as typeof nodefs;
@@ -78,7 +81,7 @@ describe("analyzeArtifact()", () => {
 		const compression = { gzip: true, brotli: false };
 		const result = await analyzeArtifact(artifact, { cwd, fs, compression });
 
-		expect(result.size).toEqual(2000);
+		expect(result.size).toBe(2000);
 		expect(result.gzip).toBeGreaterThan(0);
 		expect(result.brotli).toBeNull();
 		expect(result.files).toHaveLength(1);
@@ -89,6 +92,7 @@ describe("analyzeArtifact()", () => {
 	});
 
 	it("should support disabling both gzip and brotli", async () => {
+		expect.assertions(7);
 		const a = "a".repeat(2000);
 		const vol = Volume.fromJSON({ "/dist/a.js": a });
 		const fs = vol.promises as unknown as typeof nodefs;
@@ -103,7 +107,7 @@ describe("analyzeArtifact()", () => {
 		const compression = { gzip: false, brotli: false };
 		const result = await analyzeArtifact(artifact, { cwd, fs, compression });
 
-		expect(result.size).toEqual(2000);
+		expect(result.size).toBe(2000);
 		expect(result.gzip).toBeNull();
 		expect(result.brotli).toBeNull();
 		expect(result.files).toHaveLength(1);
@@ -114,6 +118,7 @@ describe("analyzeArtifact()", () => {
 	});
 
 	it("should aggregate sizes from multiple files", async () => {
+		expect.assertions(16);
 		const a = "a".repeat(2000);
 		const b = "b".repeat(3000);
 		const vol = Volume.fromJSON({ "/dist/a.js": a, "/dist/b.js": b });
@@ -130,7 +135,7 @@ describe("analyzeArtifact()", () => {
 		const result = await analyzeArtifact(artifact, { cwd, fs, compression });
 
 		/* aggregated results */
-		expect(result.size).toEqual(5000);
+		expect(result.size).toBe(5000);
 		expect(result.gzip).toBeGreaterThan(0);
 		expect(result.brotli).toBeGreaterThan(0);
 		expect(result.gzip).toBeLessThan(5000);
@@ -151,6 +156,7 @@ describe("analyzeArtifact()", () => {
 	});
 
 	it("should return zeros when there are no files", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({});
 		const fs = vol.promises as unknown as typeof nodefs;
 

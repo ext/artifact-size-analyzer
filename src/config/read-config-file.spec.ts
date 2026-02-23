@@ -13,6 +13,7 @@ function createVolume(configObject: unknown): { fs: typeof nodefs; path: string 
 
 describe("readConfigFile()", () => {
 	it("should parse and normalize valid config", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "app", name: "app", include: "dist/*.js" }],
 		});
@@ -31,12 +32,14 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should return empty artifacts when omitted", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({});
 		const result = await readConfigFile(path, { fs });
 		expect(result).toEqual({ artifacts: [] });
 	});
 
 	it("should normalize include string to array", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "a", name: "a", include: "dist/*.js" }],
 		});
@@ -45,6 +48,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should preserve include when array", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "b", name: "b", include: ["a", "b"] }],
 		});
@@ -53,6 +57,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should default exclude to empty array", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "c", name: "c", include: "dist/*.js" }],
 		});
@@ -61,6 +66,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should preserve compression algorithm when provided", async () => {
+		expect.assertions(2);
 		const { fs, path } = createVolume({
 			artifacts: [
 				{ id: "single", name: "single", include: "dist/*.js", compression: ["gzip"] },
@@ -73,6 +79,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should accept single compression string and normalize to array", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [
 				{ id: "single-str", name: "single-str", include: "dist/*.js", compression: "gzip" },
@@ -83,6 +90,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should accept false to disable compression and normalize to empty array", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "disabled", name: "disabled", include: "dist/*.js", compression: false }],
 		});
@@ -91,6 +99,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should reject invalid compression keywords", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "bad", name: "bad", include: "x", compression: ["invalid"] }],
 		});
@@ -107,6 +116,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should reject boolean true for compression", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [{ id: "bad-true", name: "bad-true", include: "x", compression: true }],
 		});
@@ -122,6 +132,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should reject mixed compression array with invalid entry", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [
 				{ id: "bad-mix", name: "bad-mix", include: "x", compression: ["gzip", "invalid"] },
@@ -140,6 +151,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should throw when an artifact is missing id", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({ artifacts: [{ name: "no-id", include: "dist/*.js" }] });
 		const p = readConfigFile(path, { fs });
 		await expect(p).rejects.toThrowErrorMatchingInlineSnapshot(
@@ -148,6 +160,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should throw when duplicate ids are present", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({
 			artifacts: [
 				{ id: "dup", name: "one", include: "dist/*.js" },
@@ -160,6 +173,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should throw when name is missing", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({ artifacts: [{ id: "no-name", include: "dist/*.js" }] });
 		const p = readConfigFile(path, { fs });
 		await expect(p).rejects.toThrowErrorMatchingInlineSnapshot(
@@ -168,6 +182,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should fail for empty id or name", async () => {
+		expect.assertions(2);
 		const { fs, path } = createVolume({ artifacts: [{ id: "", name: "nm", include: "x" }] });
 		await expect(readConfigFile(path, { fs })).rejects.toThrowErrorMatchingInlineSnapshot(
 			`[Error: Config schema validation failed: data/artifacts/0/id must NOT have fewer than 1 characters]`,
@@ -181,6 +196,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should reject unknown top-level properties", async () => {
+		expect.assertions(1);
 		const { fs, path } = createVolume({ artifacts: [], extra: true });
 		await expect(readConfigFile(path, { fs })).rejects.toThrowErrorMatchingInlineSnapshot(
 			`[Error: Config schema validation failed: data must NOT have additional properties]`,
@@ -188,6 +204,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should surface JSON parse errors", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/project/config.json": "{ invalid-json" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		await expect(
@@ -198,6 +215,7 @@ describe("readConfigFile()", () => {
 	});
 
 	it("should propagate fs read errors from injected fs", async () => {
+		expect.assertions(1);
 		const fakeFs = {
 			readFile: async () => {
 				throw new Error("ENOENT: no such file");

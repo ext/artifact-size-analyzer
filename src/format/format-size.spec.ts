@@ -3,21 +3,25 @@ import { formatSize } from "./format-size.ts";
 
 describe("formatSize()", () => {
 	it("should format markdown style without color", () => {
+		expect.assertions(1);
 		const size = { oldSize: 0, newSize: 1024, difference: 1024 };
 		expect(formatSize("gzip", size, { style: "markdown" })).toBe("gzip: 1.0KiB");
 	});
 
 	it("should format text style with positive diff", () => {
+		expect.assertions(1);
 		const size = { oldSize: 512, newSize: 1024, difference: 512 };
 		expect(formatSize("gzip", size, { style: "text" })).toBe("gzip=1.0KiB (+512B)");
 	});
 
 	it("should format text style with negative diff", () => {
+		expect.assertions(1);
 		const size = { oldSize: 2048, newSize: 1024, difference: -1024 };
 		expect(formatSize("gzip", size, { style: "text" })).toBe("gzip=1.0KiB (-1.0KiB)");
 	});
 
 	it("should apply colorize only to the numeric portion", () => {
+		expect.assertions(2);
 		const size = { oldSize: 512, newSize: 1024, difference: 512 };
 		const colorize = (s: string): string => `*${s}*`;
 		expect(formatSize("gzip", size, { style: "markdown", colorize })).toBe("gzip: *1.0KiB*");

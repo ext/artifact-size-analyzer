@@ -8,6 +8,7 @@ const cwd = "/";
 
 describe("getFiles", () => {
 	it("should return empty array when include and exclude are both empty", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
@@ -19,6 +20,7 @@ describe("getFiles", () => {
 	});
 
 	it("should return files matched by include", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
@@ -30,6 +32,7 @@ describe("getFiles", () => {
 	});
 
 	it("should return files matched by include (glob)", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "", "/dist/foo.js": "" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
@@ -41,6 +44,7 @@ describe("getFiles", () => {
 	});
 
 	it("should exclude files matched by exclude", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "", "/dist/foo.js": "" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
@@ -52,6 +56,7 @@ describe("getFiles", () => {
 	});
 
 	it("should handle globstar", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "", "/dist/foo.js": "" });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
@@ -63,6 +68,7 @@ describe("getFiles", () => {
 	});
 
 	it("should ignore directories and only return files", async () => {
+		expect.assertions(1);
 		const vol = Volume.fromJSON({ "/dist/index.js": "", "/dist/subdir/": null });
 		const fs = vol.promises as unknown as typeof nodefs;
 		const artifact: Pick<NormalizedArtifactConfig, "include" | "exclude"> = {
