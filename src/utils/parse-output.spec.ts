@@ -27,15 +27,15 @@ describe("parseOutput()", () => {
 		expect.assertions(2);
 		expect(() =>
 			parseOutput(null as unknown as string, { paramName, requireFormat: true }),
-		).toThrowError("--mock-parameter must be a string in the form 'format:key'");
-		expect(() =>
-			parseOutput({} as unknown as string, { paramName, requireFormat: true }),
-		).toThrowError("--mock-parameter must be a string in the form 'format:key'");
+		).toThrow("--mock-parameter must be a string in the form 'format:key'");
+		expect(() => parseOutput({} as unknown as string, { paramName, requireFormat: true })).toThrow(
+			"--mock-parameter must be a string in the form 'format:key'",
+		);
 	});
 
 	it("should throw when missing the ':' separator", () => {
 		expect.assertions(1);
-		expect(() => parseOutput("json", { paramName, requireFormat: true })).toThrowError(
+		expect(() => parseOutput("json", { paramName, requireFormat: true })).toThrow(
 			"--mock-parameter must be in the form 'format:key'",
 		);
 	});
@@ -51,14 +51,14 @@ describe("parseOutput()", () => {
 
 	it("should throw for unsupported formats", () => {
 		expect.assertions(1);
-		expect(() => parseOutput("xml:foo", { paramName, requireFormat: true })).toThrowError(
+		expect(() => parseOutput("xml:foo", { paramName, requireFormat: true })).toThrow(
 			/Invalid format for --mock-parameter: xml/,
 		);
 	});
 
 	it("should throw when the key is empty", () => {
 		expect.assertions(1);
-		expect(() => parseOutput("json:", { paramName, requireFormat: true })).toThrowError(
+		expect(() => parseOutput("json:", { paramName, requireFormat: true })).toThrow(
 			"--mock-parameter key must not be empty",
 		);
 	});
