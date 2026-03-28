@@ -4,6 +4,8 @@
     "rootDirs": ["src", "analyze", "compare"],
     "outDir": "dist",
     "declarationDir": "temp/types",
+    "types": ["node"],
+    "lib": ["es2024"],
 
     "emitDeclarationOnly": true,
     "declaration": true,
