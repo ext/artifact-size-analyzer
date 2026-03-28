@@ -2,6 +2,7 @@
   "extends": ["@tsconfig/recommended", "@tsconfig/strictest", "@tsconfig/node22"],
   "compilerOptions": {
     "noEmit": true,
+    "types": ["node"],
     "allowImportingTsExtensions": true,
     "skipLibCheck": false
   },
