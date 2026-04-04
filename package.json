@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@html-validate/eslint-config": "7.0.0",
+    "@html-validate/eslint-config": "7.0.1",
     "@html-validate/eslint-config-typescript": "7.0.0",
     "@html-validate/eslint-config-typescript-typeinfo": "7.0.0",
     "@html-validate/eslint-config-vitest": "7.0.0",
