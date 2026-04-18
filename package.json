@@ -73,7 +73,7 @@
     "@vitest/coverage-v8": "4.1.4",
     "esbuild": "0.28.0",
     "is-ci": "4.1.0",
-    "memfs": "4.57.1",
+    "memfs": "4.57.2",
     "nano-spawn": "2.1.0",
     "npm-pkg-lint": "4.6.5",
     "semver": "7.7.4",
