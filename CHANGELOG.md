@@ -1,5 +1,11 @@
 # artifact-size-analyzer changelog
 
+## 1.2.4 (2026-05-01)
+
+### Bug Fixes
+
+- **deps:** update dependency ajv to v8.20.0 ([557eca1](https://github.com/ext/artifact-size-analyzer/commit/557eca18094418708ba83f4b77aacf7aec32f2cd))
+
 ## 1.2.3 (2026-02-20)
 
 ### Bug Fixes
