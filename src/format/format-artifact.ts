@@ -1,5 +1,3 @@
-/* eslint-disable n/no-unsupported-features/node-builtins -- styleText is backported to 22.13 */
-
 import util from "node:util";
 import { type ArtifactSize } from "../artifact-size.ts";
 import { prettySize } from "../utils/index.ts";
