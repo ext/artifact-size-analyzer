@@ -1,5 +1,3 @@
-/* eslint-disable n/no-unsupported-features/node-builtins -- styleText is backported to 22.13 */
-
 import util from "node:util";
 import { type ArtifactDiff } from "../artifact-diff.ts";
 import { filterUnchangedArtifacts } from "./filter-unchanged.ts";

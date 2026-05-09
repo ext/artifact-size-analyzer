@@ -57,10 +57,10 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@html-validate/eslint-config": "7.0.11",
-    "@html-validate/eslint-config-typescript": "7.0.17",
-    "@html-validate/eslint-config-typescript-typeinfo": "7.0.17",
-    "@html-validate/eslint-config-vitest": "7.0.13",
+    "@html-validate/eslint-config": "7.1.1",
+    "@html-validate/eslint-config-typescript": "7.1.0",
+    "@html-validate/eslint-config-typescript-typeinfo": "7.1.0",
+    "@html-validate/eslint-config-vitest": "7.1.2",
     "@html-validate/prettier-config": "3.1.18",
     "@html-validate/release-scripts": "7.1.20",
     "@microsoft/api-extractor": "7.58.7",
@@ -82,7 +82,7 @@
     "vitest": "4.1.5"
   },
   "engines": {
-    "node": ">= 22.19"
+    "node": "^22.19 || >= 24.0.0"
   },
   "externalDependencies": []
 }
