@@ -51,7 +51,7 @@ export default [
 		name: "local/ts",
 		files: ["**/*.ts"],
 		rules: {
-			"import/extensions": "off",
+			"import-x/extensions": "off",
 		},
 	},
 
@@ -60,7 +60,7 @@ export default [
 		files: ["examples/**/*.ts"],
 		rules: {
 			"no-console": "off",
-			"import/no-unresolved": "off",
+			"import-x/no-unresolved": "off",
 		},
 	},
 
