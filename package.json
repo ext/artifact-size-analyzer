@@ -75,7 +75,7 @@
     "is-ci": "4.1.0",
     "memfs": "4.57.6",
     "nano-spawn": "2.1.0",
-    "npm-pkg-lint": "5.1.4",
+    "npm-pkg-lint": "5.1.5",
     "semver": "7.8.2",
     "stream-buffers": "3.0.3",
     "typescript": "6.0.3",
