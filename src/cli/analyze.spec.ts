@@ -30,7 +30,7 @@ it("should write to GitHub Actions output when --output-github is provided", asy
 	]);
 
 	const content = await fs.readFile("/gha_out.txt", "utf8");
-	expect(content).toMatch(/^foo<<EOF\n[\S\s]*\nEOF\n$/);
+	expect(content).toMatch(/^foo<<EOF\n[\s\S]*\nEOF\n$/);
 
 	const stdout = stream.getContentsAsString("utf8");
 	expect(stdout).toMatchInlineSnapshot(`
@@ -83,8 +83,8 @@ it("should write multiple GitHub outputs when multiple --output-github are provi
 	]);
 
 	const content = await fs.readFile("/gha_out.txt", "utf8");
-	expect(content).toMatch(/^foo<<EOF[\S\s]*?\nEOF\n/);
-	expect(content).toMatch(/bar<<EOF[\S\s]*?\nEOF\n$/);
+	expect(content).toMatch(/^foo<<EOF[\s\S]*?\nEOF\n/);
+	expect(content).toMatch(/bar<<EOF[\s\S]*?\nEOF\n$/);
 
 	const stdout = stream.getContentsAsString("utf8");
 	expect(stdout).toMatchInlineSnapshot(`
