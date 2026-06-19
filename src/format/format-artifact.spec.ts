@@ -94,7 +94,7 @@ describe("formatArtifact()", () => {
 			},
 		];
 
-		// json
+		// JSON
 		const outJson = formatArtifact(empty, "json");
 		const parsed = JSON.parse(outJson);
 		expect(parsed).toEqual(empty);
@@ -127,7 +127,7 @@ describe("formatArtifact()", () => {
 			},
 		];
 
-		// json
+		// JSON
 		const outJson = formatArtifact(single, "json");
 		const parsed = JSON.parse(outJson);
 		expect(parsed).toEqual(single);

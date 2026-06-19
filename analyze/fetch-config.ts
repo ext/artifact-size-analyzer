@@ -42,7 +42,7 @@ const requiredEnvVars = [
 ] as const;
 
 for (const envVar of requiredEnvVars) {
-	if (!process.env[envVar]) {
+	if (!Object.hasOwn(process.env, envVar)) {
 		throw new Error(`Required environment variable ${envVar} is not set`);
 	}
 }

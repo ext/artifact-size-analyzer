@@ -35,7 +35,7 @@ describe("toArray", () => {
 	it("should handle string to number transformation", () => {
 		expect.assertions(1);
 		const input = ["1", "2", "3"];
-		const transform = (x: string): number => Number.parseInt(x, 10);
+		const transform = (x: string): number => Number(x);
 		const result = toArray(input, transform);
 		expect(result).toEqual([1, 2, 3]);
 	});
@@ -43,7 +43,7 @@ describe("toArray", () => {
 	it("should handle transformation of single string", () => {
 		expect.assertions(1);
 		const input = "42";
-		const transform = (x: string): number => Number.parseInt(x, 10);
+		const transform = (x: string): number => Number(x);
 		const result = toArray(input, transform);
 		expect(result).toEqual([42]);
 	});
