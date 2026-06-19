@@ -163,9 +163,9 @@ export function compareArtifact(
 
 	if (base && current) {
 		return compareUpdated(base, current);
-	} else if (current) {
-		return compareAdded(current);
-	} else {
-		return compareRemoved(base);
 	}
+	if (current) {
+		return compareAdded(current);
+	}
+	return compareRemoved(base);
 }

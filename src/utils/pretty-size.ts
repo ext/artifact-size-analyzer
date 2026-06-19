@@ -5,12 +5,11 @@
  */
 export function prettySize(size: number): string {
 	const kb = 1024;
-	const mb = kb * 1024;
-
 	if (size < kb) {
 		return `${String(size)}B`;
 	}
 
+	const mb = kb * 1024;
 	if (size < mb) {
 		return `${(size / kb).toFixed(1)}KiB`;
 	}

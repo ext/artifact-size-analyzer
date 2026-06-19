@@ -31,10 +31,10 @@ export function compareArtifacts(base: ArtifactSize[], current: ArtifactSize[]):
 		const { base, current } = getArtifactsById(id);
 		if (current && base) {
 			return compareArtifact(base, current);
-		} else if (current) {
-			return compareArtifact(undefined, current);
-		} else {
-			return compareArtifact(base, undefined);
 		}
+		if (current) {
+			return compareArtifact(undefined, current);
+		}
+		return compareArtifact(base, undefined);
 	});
 }

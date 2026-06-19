@@ -11,6 +11,7 @@ export class UserError extends Error {
 	public constructor(options: { message: string; code: "ENOCONFIG"; exitCode?: number }) {
 		const { message, code, exitCode = 1 } = options;
 
+		/* eslint-disable-next-line unicorn/custom-error-definition -- technical error, should take cause in options */
 		super(message);
 
 		this.name = "UserError";

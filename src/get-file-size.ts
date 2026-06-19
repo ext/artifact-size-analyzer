@@ -53,6 +53,7 @@ export async function getFileSize(
 
 	if (doGzip) {
 		tasks.push(
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional */
 			gzip(buf).then((gzBuf) => {
 				gzLen = gzBuf.length;
 			}),
@@ -61,6 +62,7 @@ export async function getFileSize(
 
 	if (doBrotli) {
 		tasks.push(
+			/* eslint-disable-next-line unicorn/prefer-await -- intentional */
 			brotliCompress(buf).then((brBuf) => {
 				brLen = brBuf.length;
 			}),
