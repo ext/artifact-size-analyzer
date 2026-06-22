@@ -19,7 +19,8 @@ export async function getFiles(options: GetFilesOptions): Promise<string[]> {
 
 	for (const pattern of include) {
 		/* eslint-disable-next-line @typescript-eslint/await-thenable -- memfs incorrectly types this */
-		for await (const filePath of await fs.glob(pattern, { cwd })) {
+		const filePaths = await fs.glob(pattern, { cwd });
+		for await (const filePath of filePaths) {
 			const st = await fs.stat(resolve(cwd, filePath));
 			if (st.isFile()) {
 				result.add(filePath);
@@ -33,7 +34,8 @@ export async function getFiles(options: GetFilesOptions): Promise<string[]> {
 
 	for (const pattern of exclude) {
 		/* eslint-disable-next-line @typescript-eslint/await-thenable -- memfs incorrectly types this */
-		for await (const filePath of await fs.glob(pattern, { cwd })) {
+		const filePaths = await fs.glob(pattern, { cwd });
+		for await (const filePath of filePaths) {
 			result.delete(filePath);
 		}
 	}
