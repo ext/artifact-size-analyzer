@@ -3,9 +3,7 @@ import type { ArtifactSize } from "../artifact-size.ts";
 import { compareArtifact } from "./compare-artifact.ts";
 
 type OneOf<T> =
-	| { base: T; current: T }
-	| { base: undefined; current: T }
-	| { base: T; current: undefined };
+	{ base: T; current: T } | { base: undefined; current: T } | { base: T; current: undefined };
 
 /**
  * Compare two arrays of `ArtifactSize`, calculating the diff between each artifact.
