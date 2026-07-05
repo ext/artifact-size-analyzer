@@ -60,13 +60,13 @@ export async function cli(options: CliOptions): Promise<void> {
 					console.error(`ERROR:`, error.message, `[${error.code}]`);
 				}
 				process.exit(error.exitCode);
-			} else if (msg) {
+			}
+			if (msg) {
 				console.error(msg);
 				process.exit(1);
-			} else {
-				console.error(error);
-				process.exit(1);
 			}
+			console.error(error);
+			process.exit(1);
 			/* eslint-enable n/no-process-exit */
 		})
 		.parseAsync(argv);
