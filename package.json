@@ -70,6 +70,7 @@
     "@types/node": "22.20.1",
     "@types/stream-buffers": "3.0.8",
     "@types/yargs": "17.0.35",
+    "@typescript/native": "npm:typescript@7.0.2",
     "@vitest/coverage-v8": "4.1.10",
     "esbuild": "0.28.1",
     "is-ci": "4.1.0",
@@ -78,7 +79,7 @@
     "npm-pkg-lint": "5.1.11",
     "semver": "7.8.5",
     "stream-buffers": "3.0.3",
-    "typescript": "6.0.3",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
     "vitest": "4.1.10"
   },
   "engines": {
