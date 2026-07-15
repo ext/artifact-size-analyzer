@@ -166,7 +166,6 @@ it("should show friendly error message when config file does not exist", async (
 		/* do nothing */
 	}
 
-	/* eslint-disable-next-line vitest/valid-expect -- false positive */
 	expect(spy).toHaveBeenCalledWith(null, expect.any(UserError), expect.anything());
 
 	const [, error] = spy.mock.calls[0];
