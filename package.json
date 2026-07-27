@@ -53,7 +53,7 @@
   "prettier": "@html-validate/prettier-config",
   "dependencies": {
     "ajv": "8.20.0",
-    "yargs": "18.0.0"
+    "yargs": "18.1.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
