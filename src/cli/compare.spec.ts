@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { ArtifactDiff } from "../artifact-diff.ts";
+import { type ArtifactDiff } from "../artifact-diff.ts";
 import { type ArtifactSize } from "../artifact-size.ts";
 import { readJsonFile } from "../utils/index.ts";
 import { createParser } from "./cli.ts";

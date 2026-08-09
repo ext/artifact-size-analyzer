@@ -16,12 +16,9 @@ it("should display help message", async () => {
 		fs,
 	});
 
-	await new Promise<void>((resolve) => {
-		parser.parseAsync("--help", (err: unknown, _argv: unknown, output: unknown) => {
-			expect(err).toBeUndefined();
-			expect(output).toMatchSnapshot();
-			resolve();
-		});
+	await parser.parseAsync("--help", (err: unknown, _argv: unknown, output: unknown) => {
+		expect(err).toBeUndefined();
+		expect(output).toMatchSnapshot();
 	});
 });
 
@@ -37,12 +34,9 @@ it("should display analyze command help", async () => {
 		fs,
 	});
 
-	await new Promise<void>((resolve) => {
-		parser.parseAsync("analyze --help", (err: unknown, _argv: unknown, output: unknown) => {
-			expect(err).toBeUndefined();
-			expect(output).toMatchSnapshot();
-			resolve();
-		});
+	await parser.parseAsync("analyze --help", (err: unknown, _argv: unknown, output: unknown) => {
+		expect(err).toBeUndefined();
+		expect(output).toMatchSnapshot();
 	});
 });
 
@@ -58,11 +52,8 @@ it("should display compare command help", async () => {
 		fs,
 	});
 
-	await new Promise<void>((resolve) => {
-		parser.parseAsync("compare --help", (err: unknown, _argv: unknown, output: unknown) => {
-			expect(err).toBeUndefined();
-			expect(output).toMatchSnapshot();
-			resolve();
-		});
+	await parser.parseAsync("compare --help", (err: unknown, _argv: unknown, output: unknown) => {
+		expect(err).toBeUndefined();
+		expect(output).toMatchSnapshot();
 	});
 });

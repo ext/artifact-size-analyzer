@@ -1,4 +1,4 @@
-import nodefs from "node:fs/promises";
+import type nodefs from "node:fs/promises";
 import { Volume } from "memfs";
 import { describe, expect, it } from "vitest";
 import { getFileSize } from "./get-file-size.ts";
