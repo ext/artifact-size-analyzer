@@ -1,4 +1,4 @@
-import nodefs from "node:fs/promises";
+import type nodefs from "node:fs/promises";
 import { Volume } from "memfs";
 import { describe, expect, it } from "vitest";
 import { readConfigFile } from "./read-config-file.ts";
@@ -217,7 +217,7 @@ describe("readConfigFile()", () => {
 	it("should propagate fs read errors from injected fs", async () => {
 		expect.assertions(1);
 		const fakeFs = {
-			readFile: async () => {
+			readFile: () => {
 				throw new Error("ENOENT: no such file");
 			},
 		} as unknown as typeof nodefs;

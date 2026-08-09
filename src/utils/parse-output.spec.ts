@@ -25,10 +25,10 @@ describe("parseOutput()", () => {
 
 	it("should throw for non-string values", () => {
 		expect.assertions(2);
-		expect(() =>
-			parseOutput(null as unknown as string, { paramName, requireFormat: true }),
-		).toThrow("--mock-parameter must be a string in the form 'format:key'");
-		expect(() => parseOutput({} as unknown as string, { paramName, requireFormat: true })).toThrow(
+		expect(() => parseOutput(null, { paramName, requireFormat: true })).toThrow(
+			"--mock-parameter must be a string in the form 'format:key'",
+		);
+		expect(() => parseOutput({}, { paramName, requireFormat: true })).toThrow(
 			"--mock-parameter must be a string in the form 'format:key'",
 		);
 	});

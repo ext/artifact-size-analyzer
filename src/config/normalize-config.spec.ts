@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Config } from "./index.ts";
+import { type Config } from "./index.ts";
 import { normalizeConfig } from "./normalize-config.ts";
 
 describe("normalizeConfig()", () => {

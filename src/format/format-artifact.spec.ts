@@ -3,7 +3,9 @@ import { describe, expect, it, vi } from "vitest";
 import { type ArtifactSize } from "../artifact-size.ts";
 import { formatArtifact } from "./format-artifact.ts";
 
-vi.spyOn(util, "styleText").mockImplementation((color, text) => `<${color}>${text}</${color}>`);
+vi.spyOn(util, "styleText").mockImplementation((color, text) => {
+	return `<${String(color)}>${text}</${String(color)}>`;
+});
 
 expect.addSnapshotSerializer({
 	test() {

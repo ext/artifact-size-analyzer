@@ -17,7 +17,9 @@ import {
 } from "./__fixtures__/index.ts";
 import { formatDiff } from "./format-diff.ts";
 
-vi.spyOn(util, "styleText").mockImplementation((color, text) => `<${color}>${text}</${color}>`);
+vi.spyOn(util, "styleText").mockImplementation((color, text) => {
+	return `<${String(color)}>${text}</${String(color)}>`;
+});
 
 expect.addSnapshotSerializer({
 	test() {
