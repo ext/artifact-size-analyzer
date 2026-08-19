@@ -1,5 +1,11 @@
 # artifact-size-analyzer changelog
 
+## 1.2.6 (2026-08-19)
+
+### Bug Fixes
+
+- create missing directories when writing output files ([fa05d2d](https://github.com/ext/artifact-size-analyzer/commit/fa05d2ded7c4a27cbe54cf4e9b6ce723f6ebb679)), closes [#89](https://github.com/ext/artifact-size-analyzer/issues/89)
+
 ## 1.2.5 (2026-07-31)
 
 ### Bug Fixes
