@@ -57,9 +57,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@html-validate/eslint-config": "9.18.1",
-    "@html-validate/eslint-config-typescript": "9.18.0",
-    "@html-validate/eslint-config-typescript-typeinfo": "9.18.0",
+    "@html-validate/eslint-config": "9.18.4",
+    "@html-validate/eslint-config-typescript": "9.18.3",
+    "@html-validate/eslint-config-typescript-typeinfo": "9.18.3",
     "@html-validate/eslint-config-vitest": "9.18.0",
     "@html-validate/prettier-config": "4.1.11",
     "@html-validate/release-scripts": "7.6.8",
