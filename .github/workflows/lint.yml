@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: npm-pkg-lint
-        uses: ext/npm-pkg-lint@1190a61451870cdcc27f10d1d156f1a6cf3de806 # master
+        uses: ext/npm-pkg-lint@4ed1cea923df8d97a7034a5634f18be35b8f48da # master
 
   attw:
     runs-on: ubuntu-latest
