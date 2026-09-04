@@ -71,7 +71,7 @@
     "@types/stream-buffers": "3.0.8",
     "@types/yargs": "17.0.35",
     "@typescript/native": "npm:typescript@7.0.2",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.0.0",
     "esbuild": "0.28.2",
     "is-ci": "4.1.0",
     "memfs": "4.69.1",
@@ -80,7 +80,7 @@
     "semver": "7.8.5",
     "stream-buffers": "3.0.3",
     "typescript": "npm:@typescript/typescript6@6.0.2",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   },
   "engines": {
     "node": "^22.19 || >= 24.0.0"
