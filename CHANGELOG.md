@@ -1,5 +1,11 @@
 # artifact-size-analyzer changelog
 
+## 1.2.7 (2026-09-25)
+
+### Bug Fixes
+
+- **deps:** update dependency yargs to v18.2.0 ([7d50b3e](https://github.com/ext/artifact-size-analyzer/commit/7d50b3e009d41ed5ebcb00dbbd44848002f06841))
+
 ## 1.2.6 (2026-08-19)
 
 ### Bug Fixes
