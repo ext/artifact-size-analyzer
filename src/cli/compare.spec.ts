@@ -503,6 +503,7 @@ it("should compare multiple artifacts", async () => {
 	expect(diff[0].newFiles).toEqual([expect.objectContaining({ filename: "dist/app/app.js" })]);
 
 	/* helper to find specific artifacts by name */
+	/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- technical debt */
 	function findDiff(arr: ArtifactDiff[], name: string): ArtifactDiff {
 		const d = arr.find((diff) => diff.name === name);
 		if (!d) {
