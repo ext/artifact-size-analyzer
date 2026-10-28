@@ -2,9 +2,6 @@ import type { ArtifactDiff } from "../artifact-diff.ts";
 import type { ArtifactSize } from "../artifact-size.ts";
 import { compareArtifact } from "./compare-artifact.ts";
 
-type OneOf<T> =
-	{ base: T; current: T } | { base: undefined; current: T } | { base: T; current: undefined };
-
 /**
  * Compare two arrays of `ArtifactSize`, calculating the diff between each artifact.
  *
@@ -14,6 +11,9 @@ type OneOf<T> =
  * @public
  */
 export function compareArtifacts(base: ArtifactSize[], current: ArtifactSize[]): ArtifactDiff[] {
+	type OneOf<T> =
+		{ base: T; current: T } | { base: undefined; current: T } | { base: T; current: undefined };
+
 	const baseMap = new Map(base.map((b) => [b.id, b]));
 	const currentMap = new Map(current.map((b) => [b.id, b]));
 
