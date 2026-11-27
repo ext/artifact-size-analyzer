@@ -62,10 +62,10 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@html-validate/eslint-config": "9.25.0",
+    "@html-validate/eslint-config": "9.25.6",
     "@html-validate/eslint-config-typescript": "9.25.4",
     "@html-validate/eslint-config-typescript-typeinfo": "9.25.4",
-    "@html-validate/eslint-config-vitest": "9.25.0",
+    "@html-validate/eslint-config-vitest": "9.25.6",
     "@html-validate/prettier-config": "4.1.21",
     "@html-validate/release-scripts": "7.6.22",
     "@microsoft/api-extractor": "7.60.1",
